@@ -1,0 +1,215 @@
+* {
+    box-sizing: border-box;
+    margin: 0
+}
+
+body {
+    font-family: Arial;
+    background: #fff8f0;
+    color: #333
+}
+
+nav {
+    background: #fff;
+    padding: 18px 8%;
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0 2px 8px #ddd
+}
+
+nav a {
+    margin-left: 20px;
+    text-decoration: none;
+    color: #333
+}
+
+.hero {
+    min-height: 430px;
+    padding: 60px 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ffe8cc
+}
+
+.hero-text {
+    max-width: 600px
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin: 15px 0
+}
+
+.emoji {
+    font-size: 100px
+}
+
+.btn,
+button {
+    background: #d2691e;
+    color: white;
+    border: 0;
+    padding: 12px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none
+}
+
+.quick,
+.section {
+    text-align: center;
+    padding: 50px 8%
+}
+
+.quick p {
+    margin: 15px
+}
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(4, 230px);
+    justify-content: center;
+    gap: 25px;
+    margin-top: 30px
+}
+
+.card {
+    position: relative;
+    width: 230px;
+    min-height: 260px;
+    padding: 15px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px #ddd
+}
+
+.card img {
+    width: 100%;
+    height: 150px;
+    object-fit: contain;
+    border-radius: 8px
+}
+
+.card h3,
+.card p {
+    margin: 10px
+}
+
+.add {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    width: 38px;
+    height: 38px;
+    background: #d2691e;
+    color: white;
+    border-radius: 50%;
+    font-size: 27px;
+    text-align: center;
+    cursor: pointer
+}
+
+.quantity {
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    display: flex;
+    gap: 6px;
+    align-items: center
+}
+
+.quantity button {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border-radius: 50%
+}
+
+.cart {
+    width: 500px;
+    max-width: 90%;
+    margin: 50px auto;
+    padding: 30px;
+    background: white;
+    border-radius: 10px
+}
+
+.cart h1,
+.cart h2,
+.cart h3 {
+    margin-bottom: 15px
+}
+
+.cart input,
+.cart textarea,
+.cart select {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px
+}
+
+.cartItem {
+    padding: 10px;
+    margin: 8px 0;
+    background: #fff1df
+}
+
+.cartItem button {
+    float: right;
+    padding: 6px 10px
+}
+
+#success {
+    margin-top: 20px;
+    padding: 15px;
+    text-align: center;
+    background: #e8f8e8;
+    color: #287a28;
+    border-radius: 8px;
+    font-weight: bold
+}
+
+footer {
+    padding: 30px;
+    text-align: center;
+    background: #3d2418;
+    color: white
+}
+
+@media(max-width:1050px) {
+    .products {
+        grid-template-columns: repeat(3, 230px)
+    }
+}
+
+@media(max-width:800px) {
+    .products {
+        grid-template-columns: repeat(2, 230px)
+    }
+
+    .hero {
+        flex-direction: column;
+        text-align: center
+    }
+
+    .hero h1 {
+        font-size: 36px
+    }
+
+    .emoji {
+        font-size: 70px
+    }
+}
+
+@media(max-width:550px) {
+    .products {
+        grid-template-columns: 230px
+    }
+
+    nav {
+        padding: 15px
+    }
+}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cart - DS SnackBox</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<nav>
+    <h2>🍪 DS SnackBox</h2>
+    <div>
+        <a href="/">Home</a>
+        <a href="/products">Menu</a>
+        <a href="/cart">Cart 🛒</a>
+    </div>
+</nav>
+
+<section class="cart">
+    <h1>🛒 Your Cart</h1>
+
+    <div id="cartItems"></div>
+
+    <h2>Total: ₹<span id="total">0</span></h2>
+
+    <h2>Order Details</h2>
+
+    <input id="name" type="text" placeholder="Your Name" required>
+    <input id="mobile" type="tel" placeholder="Mobile Number" required>
+    <textarea id="address" placeholder="Delivery Address" required></textarea>
+
+    <h3>Payment Method</h3>
+
+    <select id="payment">
+        <option>💳 Online Payment</option>
+        <option>💵 Cash on Delivery</option>
+    </select>
+
+    <button onclick="placeOrder()">Place Order 🎉</button>
+
+    <div id="success"></div>
+</section>
+
+<footer>
+    <h3>🍪 DS SnackBox</h3>
+    <p>Snacks Made for Every Craving</p>
+</footer>
+
+<script src="/static/script.js"></script>
+</body>
+</html>

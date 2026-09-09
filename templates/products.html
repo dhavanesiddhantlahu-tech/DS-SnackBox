@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Products - DS SnackBox</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<nav>
+    <h2>🍪 DS SnackBox</h2>
+    <div>
+        <a href="/">Home</a>
+        <a href="/products">Menu</a>
+        <a href="/cart">Cart 🛒</a>
+    </div>
+</nav>
+
+<section class="section">
+    <p>OUR MENU</p>
+    <h1>Choose Your Favourite</h1>
+
+    <div class="products">
+
+        <div class="card">
+            <img src="/static/images/cookies.jpg">
+            <h3>Chocolate Cookies</h3>
+            <p>₹120</p>
+            <div class="add"
+            onclick="addCart(this,'Chocolate Cookies',120)">+</div>
+        </div>
+
+        <div class="card">
+            <img src="/static/images/biscuits.jpg">
+            <h3>Butter Biscuits</h3>
+            <p>₹80</p>
+            <div class="add"
+            onclick="addCart(this,'Butter Biscuits',80)">+</div>
+        </div>
+
+        <div class="card">
+            <img src="/static/images/cupcake.jpg">
+            <h3>Chocolate Cupcake</h3>
+            <p>₹60</p>
+            <div class="add"
+            onclick="addCart(this,'Chocolate Cupcake',60)">+</div>
+        </div>
+
+        <div class="card">
+            <img src="/static/images/cake.jpg">
+            <h3>Chocolate Cake</h3>
+            <p>₹450</p>
+            <div class="add"
+            onclick="addCart(this,'Chocolate Cake',450)">+</div>
+        </div>
+
+        <div class="card">
+            <img src="/static/images/snack.jpg">
+            <h3>Masala Snack</h3>
+            <p>₹40</p>
+            <div class="add"
+            onclick="addCart(this,'Masala Snack',40)">+</div>
+        </div>
+
+        <div class="card">
+            <img src="/static/images/chips.jpg">
+            <h3>Classic Chips</h3>
+            <p>₹50</p>
+            <div class="add"
+            onclick="addCart(this,'Classic Chips',50)">+</div>
+        </div>
+
+        <div class="card">
+            <img src="/static/images/coca_cola.jpg">
+            <h3>Coca Cola</h3>
+            <p>₹100</p>
+            <div class="add"
+            onclick="addCart(this,'Coca Cola',100)">+</div>
+        </div>
+
+    </div>
+</section>
+
+<footer>
+    <h3>🍪 DS SnackBox</h3>
+</footer>
+
+<script src="/static/script.js"></script>
+</body>
+</html>
