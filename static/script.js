@@ -1,49 +1,39 @@
 function getCart() {
     try { return JSON.parse(localStorage.getItem("cart")) || []; } catch (e) { return []; }
 }
-
 function saveCart(cart) {
     localStorage.setItem("cart", JSON.stringify(cart));
     updateCartCount();
 }
-
 function updateCartCount() {
-    const badge = document.getElementById("cart-count");
-    if (badge) {
+    const el = document.getElementById("cart-count");
+    if (el) {
         const count = getCart().reduce((sum, item) => sum + item.quantity, 0);
-        badge.innerText = count > 0 ? `(${count})` : "";
+        el.innerText = count > 0 ? `(${count})` : "";
     }
 }
 
-// Zepto Style Add / Increment
+// Add or Increment
 function addToCart(name, price) {
     let cart = getCart();
     let item = cart.find(i => i.name === name);
-    if (item) {
-        item.quantity += 1;
-    } else {
-        cart.push({ name, price: Number(price), quantity: 1 });
-    }
+    item ? item.quantity++ : cart.push({ name, price: Number(price), quantity: 1 });
     saveCart(cart);
     renderControls();
 }
 
-// Zepto Style Decrement
+// Decrement or Remove
 function decreaseItem(name) {
     let cart = getCart();
     let index = cart.findIndex(i => i.name === name);
     if (index !== -1) {
-        if (cart[index].quantity > 1) {
-            cart[index].quantity -= 1;
-        } else {
-            cart.splice(index, 1);
-        }
+        cart[index].quantity > 1 ? cart[index].quantity-- : cart.splice(index, 1);
         saveCart(cart);
         renderControls();
     }
 }
 
-// Render ADD or - Qty + on the Products page
+// Render dynamic stepper on product page
 function renderControls() {
     const cart = getCart();
     document.querySelectorAll("[data-product]").forEach(el => {
@@ -53,73 +43,57 @@ function renderControls() {
 
         if (item && item.quantity > 0) {
             el.innerHTML = `
-                <div class="qty-btn">
+                <div class="stepper">
                     <button onclick="decreaseItem('${name}')">-</button>
                     <span>${item.quantity}</span>
                     <button onclick="addToCart('${name}',${price})">+</button>
-                </div>
-            `;
+                </div>`;
         } else {
-            el.innerHTML = `<button class="add-btn-zepto" onclick="addToCart('${name}',${price})">ADD</button>`;
+            el.innerHTML = `<button class="btn-add" onclick="addToCart('${name}',${price})">ADD</button>`;
         }
     });
 }
 
-// Cart Page: Remove Item
-function removeFromCart(index) {
+// Render items in cart.html
+function displayCart() {
+    const list = document.getElementById("cart-items");
+    const totalEl = document.getElementById("total-price");
+    if (!list || !totalEl) return;
+
     let cart = getCart();
-    cart.splice(index, 1);
+    list.innerHTML = cart.length === 0 ? "<p style='color:#888; text-align:center;'>Your cart is empty.</p>" : "";
+    let total = 0;
+
+    cart.forEach((item, index) => {
+        total += item.price * item.quantity;
+        let div = document.createElement("div");
+        div.className = "cart-item";
+        div.innerHTML = `
+            <span><b>${item.name}</b> × ${item.quantity} - ₹${item.price * item.quantity}</span>
+            <button onclick="removeItem(${index})">Remove</button>
+        `;
+        list.appendChild(div);
+    });
+    totalEl.innerText = `Total: ₹${total}`;
+}
+
+function removeItem(idx) {
+    let cart = getCart();
+    cart.splice(idx, 1);
     saveCart(cart);
     displayCart();
 }
 
-// Cart Page: Display Items
-function displayCart() {
-    const cartItemsDiv = document.getElementById("cart-items");
-    const totalPriceEl = document.getElementById("total-price");
-    if (!cartItemsDiv || !totalPriceEl) return;
-
-    let cart = getCart();
-    cartItemsDiv.innerHTML = "";
-
-    if (cart.length === 0) {
-        cartItemsDiv.innerHTML = "<p style='color:#777; padding: 10px 0;'>Your cart is empty.</p>";
-        totalPriceEl.innerText = "Total: ₹0";
-        return;
-    }
-
-    let total = 0;
-    cart.forEach((item, index) => {
-        let itemTotal = item.price * item.quantity;
-        total += itemTotal;
-        let row = document.createElement("div");
-        row.className = "cart-item-row";
-        row.innerHTML = `
-            <span><strong>${item.name}</strong> × ${item.quantity} - ₹${itemTotal}</span>
-            <button onclick="removeFromCart(${index})">Remove</button>
-        `;
-        cartItemsDiv.appendChild(row);
-    });
-    totalPriceEl.innerText = `Total: ₹${total}`;
-}
-
-// Cart Page: Place Order
 function placeOrder() {
     let cart = getCart();
-    if (cart.length === 0) {
-        alert("⚠️ Your cart is empty! Please add snacks first.");
-        return;
-    }
+    if (cart.length === 0) return alert("⚠️ Cart is empty!");
 
-    const name = document.getElementById("name") ? document.getElementById("name").value.trim() : "";
-    const phone = document.getElementById("phone") ? document.getElementById("phone").value.trim() : "";
-    const address = document.getElementById("address") ? document.getElementById("address").value.trim() : "";
-    const payment = document.getElementById("payment") ? document.getElementById("payment").value : "Cash on Delivery";
+    const name = document.getElementById("name")?.value.trim();
+    const phone = document.getElementById("phone")?.value.trim();
+    const address = document.getElementById("address")?.value.trim();
+    const payment = document.getElementById("payment")?.value || "Cash on Delivery";
 
-    if (!name || !phone || !address) {
-        alert("⚠️ Please fill all details!");
-        return;
-    }
+    if (!name || !phone || !address) return alert("⚠️ Please fill all details!");
 
     fetch("/place_order", {
         method: "POST",
