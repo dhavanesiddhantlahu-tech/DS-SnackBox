@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cart - DS SnackBox</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
     <header>
@@ -16,7 +16,7 @@
         </nav>
     </header>
 
-    <div class="cart-container">
+    <div class="cart">
         <h2>🛒 Your Cart</h2>
         <div id="cart-items"></div>
         <h3 id="total-price">Total: ₹0</h3>
@@ -27,16 +27,23 @@
             <input type="tel" id="phone" placeholder="Phone Number" required>
             <textarea id="address" placeholder="Delivery Address" rows="3" required></textarea>
             
-            <label for="payment" style="display:block; margin-top:10px; font-weight:bold;">Payment Method</label>
+            <label for="payment" style="font-weight: bold; margin-top: 5px; color: #444;">Payment Method</label>
             <select id="payment">
                 <option value="Cash on Delivery">💵 Cash on Delivery</option>
-                <option value="UPI">📱 UPI</option>
+                <option value="Online Payment">📱 Online Payment</option>
             </select>
 
-            <button class="order-btn" onclick="placeOrder()">Place Order 🎉</button>
+            <button onclick="placeOrder()">Place Order 🎉</button>
         </div>
+
+        <div id="success"></div>
     </div>
 
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <footer>
+        <h3>🍪 DS SnackBox</h3>
+        <p>Snacks Made for Every Craving</p>
+    </footer>
+
+    <script src="/static/script.js"></script>
 </body>
 </html>
