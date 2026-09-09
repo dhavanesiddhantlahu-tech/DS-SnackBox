@@ -1,30 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu - DS SnackBox</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
+
 <body>
     <header>
         <a href="/" class="logo">⚡ DS SnackBox <span class="badge">⚡ 10 mins</span></a>
-        <nav><a href="/">Home</a><a href="/products" class="active">Menu</a><a href="/cart">Cart 🛒 <span id="cart-count"></span></a></nav>
+        <nav><a href="/">Home</a><a href="/products" class="active">Menu</a><a href="/cart">Cart 🛒 <span
+                    id="cart-count"></span></a></nav>
     </header>
 
     <main>
-        <div class="section-head"><h2>Our Snack Menu</h2><span style="font-size:0.85rem;color:#64748b;">Instant Delivery</span></div>
+        <div class="section-head">
+            <h2>All Snacks & Treats</h2><span style="font-size:0.85rem;color:#64748b;">Instant Delivery</span>
+        </div>
         <div class="grid">
-            <div class="card"><div class="img-wrap"><img src="/static/images/cookies.jpg"></div><h4>Chocolate Cookies</h4><div class="card-bottom"><span class="price">₹120</span><div data-product="Chocolate Cookies" data-price="120"></div></div></div>
-            <div class="card"><div class="img-wrap"><img src="/static/images/biscuits.jpg"></div><h4>Butter Biscuits</h4><div class="card-bottom"><span class="price">₹80</span><div data-product="Butter Biscuits" data-price="80"></div></div></div>
-            <div class="card"><div class="img-wrap"><img src="/static/images/cupcake.jpg"></div><h4>Chocolate Cupcake</h4><div class="card-bottom"><span class="price">₹60</span><div data-product="Chocolate Cupcake" data-price="60"></div></div></div>
-            <div class="card"><div class="img-wrap"><img src="/static/images/cake.jpg"></div><h4>Chocolate Cake</h4><div class="card-bottom"><span class="price">₹450</span><div data-product="Chocolate Cake" data-price="450"></div></div></div>
-            <div class="card"><div class="img-wrap"><img src="/static/images/snack.jpg"></div><h4>Crispy Mixture</h4><div class="card-bottom"><span class="price">₹50</span><div data-product="Crispy Mixture" data-price="50"></div></div></div>
-            <div class="card"><div class="img-wrap"><img src="/static/images/chips.jpg"></div><h4>Potato Chips</h4><div class="card-bottom"><span class="price">₹40</span><div data-product="Potato Chips" data-price="40"></div></div></div>
-            <div class="card"><div class="img-wrap"><img src="/static/images/coca_cola.jpg"></div><h4>Coca Cola Can</h4><div class="card-bottom"><span class="price">₹35</span><div data-product="Coca Cola Can" data-price="35"></div></div></div>
+            <!-- Chocolates & Sweets -->
+            <div class="card">
+                <div class="img-wrap"><img src="/static/images/dairy_milk.png" alt="Dairy Milk"></div>
+                <h4>Dairy Milk Silk</h4>
+                <div class="card-bottom"><span class="price">₹80</span>
+                    <div data-product="Dairy Milk Silk" data-price="80"></div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="img-wrap"><img src="/static/images/gulab_jamun.png" alt="Gulab Jamun"></div>
+                <h4>Gulab Jamun (2 pcs)</h4>
+                <div class="card-bottom"><span class="price">₹50</span>
+                    <div data-product="Gulab Jamun" data-price="50"></div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="img-wrap"><img src="/static/images/rasgulla.png" alt="Rasgulla"></div>
+                <h4>Rasgulla (2 pcs)</h4>
+                <div class="card-bottom"><span class="price">₹50</span>
+                    <div data-product="Rasgulla" data-price="50"></div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="img-wrap"><img src="/static/images/ice_cream.png" alt="Ice Cream"></div>
+                <h4>Vanilla Ice Cream Cup</h4>
+                <div class="card-bottom"><span class="price">₹40</span>
+                    <div data-product="Vanilla Ice Cream" data-price="40"></div>
+                </div>
+            </div>
+
+            <!-- Cakes & Bakery -->
+            <div class="card">
+                <div class="img-wrap"><img src="/static/images/cake.png" alt="Chocolate Cake"></div>
+                <h4>Chocolate Cake (500g)</h4>
+                <div class="card-bottom"><span class="price">₹450</span>
+                    <div data-product="Chocolate Cake" data-price="450"></div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="img-wrap"><img src="/static/images/cupcake.png" alt="Chocolate Cupcake"></div>
+                <h4>Chocolate Cupcake</h4>
+                <div class="card-bottom"><span class="price">₹60</span>
+                    <div data-product="Chocolate Cupcake" data-price="60"></div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="img-wrap"><img src="/static/images/cookies.png" alt="Chocolate Cookies"></div>
+                <h4>Chocolate Cookies</h4>
+                <div class="card-bottom"><span class="price">₹120</span>
+                    <div data-product="Chocolate Cookies" data-price="120"></div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="img-wrap"><img src="/static/images/biscuits.png" alt="Butter Biscuits"></div>
+                <h4>Butter Biscuits</h4>
+                <div class="card-bottom"><span class="price">₹80</span>
+                    <div data-product="Butter Biscuits" data-price="80"></div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="img-wrap"><img src="/static/images/puff.png" alt="Veg Puff"></div>
+                <h4>Crispy Veg Puff</h4>
+                <div class="card-bottom"><span class="price">₹25</span>
+                    <div data-product="Crispy Veg Puff" data-price="25"></div>
+                </div>
+            </div>
+
+            <!-- Chips & Munchies -->
+            <div class="card">
+                <div class="img-wrap"><img src="/static/images/kurkure.png" alt="Kurkure"></div>
+                <h4>Kurkure Masala Munch</h4>
+                <div class="card-bottom"><span class="price">₹20</span>
+                    <div data-product="Kurkure Masala Munch" data-price="20"></div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="img-wrap"><img src="/static/images/chips.png" alt="Potato Chips"></div>
+                <h4>Classic Salted Chips</h4>
+                <div class="card-bottom"><span class="price">₹30</span>
+                    <div data-product="Classic Salted Chips" data-price="30"></div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="img-wrap"><img src="/static/images/doritos.png" alt="Doritos"></div>
+                <h4>Doritos Nacho Cheese</h4>
+                <div class="card-bottom"><span class="price">₹50</span>
+                    <div data-product="Doritos Nacho Cheese" data-price="50"></div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="img-wrap"><img src="/static/images/pop_corn.png" alt="Popcorn"></div>
+                <h4>Butter Popcorn</h4>
+                <div class="card-bottom"><span class="price">₹40</span>
+                    <div data-product="Butter Popcorn" data-price="40"></div>
+                </div>
+            </div>
+
+            <!-- Beverages -->
+            <div class="card">
+                <div class="img-wrap"><img src="/static/images/coca_cola.png" alt="Coca Cola"></div>
+                <h4>Coca Cola Can (330ml)</h4>
+                <div class="card-bottom"><span class="price">₹40</span>
+                    <div data-product="Coca Cola Can" data-price="40"></div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="img-wrap"><img src="/static/images/pepsi.png" alt="Pepsi"></div>
+                <h4>Pepsi Can (330ml)</h4>
+                <div class="card-bottom"><span class="price">₹40</span>
+                    <div data-product="Pepsi Can" data-price="40"></div>
+                </div>
+            </div>
         </div>
     </main>
 
-    <footer><p>⚡ DS SnackBox • Delivered in Minutes</p></footer>
+    <footer>
+        <p>⚡ DS SnackBox • Delivered in Minutes</p>
+    </footer>
     <script src="/static/script.js"></script>
 </body>
+
 </html>
