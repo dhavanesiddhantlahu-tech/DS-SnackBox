@@ -3,32 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DS SnackBox - Home</title>
+    <title>DS SnackBox - Fast Delivery</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
     <header>
-        <div class="logo">🍪 DS SnackBox</div>
+        <div class="brand-header">
+            <div class="logo">⚡ DS SnackBox</div>
+            <div class="delivery-badge">⚡ Delivery in 10 mins • Pune</div>
+        </div>
         <nav>
             <a href="/" class="active">Home</a>
             <a href="/products">Menu</a>
-            <a href="/cart">Cart 🛒</a>
+            <a href="/cart">Cart 🛒 <span id="cart-count"></span></a>
         </nav>
     </header>
 
-    <main style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 80px 20px;">
-        <h1 style="font-size: 2.8rem; color: #d85a1a; margin-bottom: 16px;">Welcome to DS SnackBox 🍿</h1>
-        <p style="font-size: 1.2rem; color: #666; max-width: 600px; margin-bottom: 30px;">
-            Fresh, delicious snacks delivered straight to your door. Explore our wide variety of biscuits, cakes, chips, and drinks!
-        </p>
-        <a href="/products" style="background: #d85a1a; color: white; text-decoration: none; padding: 14px 28px; border-radius: 8px; font-weight: bold; font-size: 1.1rem; box-shadow: 0 4px 12px rgba(216,90,26,0.3);">
-            Browse Menu 🍪
-        </a>
+    <!-- Category Sub-Bar -->
+    <div class="category-nav">
+        <a href="/products" class="cat-item active">🛍️ All</a>
+        <a href="/products" class="cat-item">☕ Cafe</a>
+        <a href="/products" class="cat-item">🍪 Cookies</a>
+        <a href="/products" class="cat-item">🧁 Bakery</a>
+        <a href="/products" class="cat-item">🍟 Munchies</a>
+        <a href="/products" class="cat-item">🥤 Drinks</a>
+    </div>
+
+    <main class="home-main">
+        <!-- Hero Promo Cards -->
+        <div class="banner-grid">
+            <div class="promo-card promo-pink">
+                <span class="tag">SUPER SAVINGS</span>
+                <h2>Zero Delivery Fee</h2>
+                <p>On all orders above ₹99 today!</p>
+                <div class="perks">
+                    <span>✔ ₹0 Handling</span>
+                    <span>✔ ₹0 Surge Fee</span>
+                </div>
+                <a href="/products" class="banner-btn">Order Now →</a>
+            </div>
+
+            <div class="promo-card promo-blue">
+                <span class="tag">FRESH & CRISP</span>
+                <h2>Cravings Corner 🍿</h2>
+                <p>Freshly baked treats & chilled sodas ready to ship.</p>
+                <div class="perks">
+                    <span>✔ 100% Quality Assured</span>
+                    <span>✔ Instant Dispatch</span>
+                </div>
+                <a href="/products" class="banner-btn">Explore Menu →</a>
+            </div>
+        </div>
+
+        <!-- Quick Pick Snacks Preview -->
+        <section class="quick-picks">
+            <div class="section-title">
+                <h2>Popular Right Now 🔥</h2>
+                <a href="/products" class="view-all">View All →</a>
+            </div>
+
+            <div class="preview-grid">
+                <div class="mini-card">
+                    <img src="/static/images/cookies.jpg" alt="Chocolate Cookies">
+                    <h4>Chocolate Cookies</h4>
+                    <p>₹120</p>
+                    <a href="/products" class="mini-btn">Add</a>
+                </div>
+                <div class="mini-card">
+                    <img src="/static/images/chips.jpg" alt="Potato Chips">
+                    <h4>Potato Chips</h4>
+                    <p>₹40</p>
+                    <a href="/products" class="mini-btn">Add</a>
+                </div>
+                <div class="mini-card">
+                    <img src="/static/images/cake.jpg" alt="Chocolate Cake">
+                    <h4>Chocolate Cake</h4>
+                    <p>₹450</p>
+                    <a href="/products" class="mini-btn">Add</a>
+                </div>
+                <div class="mini-card">
+                    <img src="/static/images/coca_cola.jpg" alt="Coca Cola Can">
+                    <h4>Coca Cola</h4>
+                    <p>₹35</p>
+                    <a href="/products" class="mini-btn">Add</a>
+                </div>
+            </div>
+        </section>
     </main>
 
     <footer>
-        <h3>🍪 DS SnackBox</h3>
-        <p>Snacks Made for Every Craving</p>
+        <p>⚡ DS SnackBox • Delivered in Minutes</p>
     </footer>
 
     <script src="/static/script.js"></script>
