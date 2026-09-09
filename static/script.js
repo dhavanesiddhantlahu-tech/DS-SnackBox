@@ -3,12 +3,12 @@ function getCart() {
 }
 function saveCart(cart) {
     localStorage.setItem("cart", JSON.stringify(cart));
-    updateCartCount();
+    updateBadge();
 }
-function updateCartCount() {
+function updateBadge() {
     const el = document.getElementById("cart-count");
     if (el) {
-        const count = getCart().reduce((sum, item) => sum + item.quantity, 0);
+        const count = getCart().reduce((s, i) => s + i.quantity, 0);
         el.innerText = count > 0 ? `(${count})` : "";
     }
 }
@@ -37,17 +37,9 @@ function renderControls() {
         const name = el.getAttribute("data-product");
         const price = el.getAttribute("data-price");
         const item = cart.find(i => i.name === name);
-
-        if (item && item.quantity > 0) {
-            el.innerHTML = `
-                <div class="stepper">
-                    <button onclick="decreaseItem('${name}')">-</button>
-                    <span>${item.quantity}</span>
-                    <button onclick="addToCart('${name}',${price})">+</button>
-                </div>`;
-        } else {
-            el.innerHTML = `<button class="btn-add" onclick="addToCart('${name}',${price})">ADD</button>`;
-        }
+        el.innerHTML = (item && item.quantity > 0)
+            ? `<div class="stepper"><button onclick="decreaseItem('${name}')">-</button><span>${item.quantity}</span><button onclick="addToCart('${name}',${price})">+</button></div>`
+            : `<button class="btn-add" onclick="addToCart('${name}',${price})">ADD</button>`;
     });
 }
 
@@ -56,19 +48,11 @@ function displayCart() {
     const totalEl = document.getElementById("total-price");
     if (!list || !totalEl) return;
 
-    let cart = getCart();
-    list.innerHTML = cart.length === 0 ? "<p style='color:#888; text-align:center;'>Your cart is empty.</p>" : "";
-    let total = 0;
-
-    cart.forEach((item, index) => {
+    let cart = getCart(), total = 0;
+    list.innerHTML = cart.length === 0 ? "<p style='color:#888;text-align:center;'>Your cart is empty.</p>" : "";
+    cart.forEach((item, idx) => {
         total += item.price * item.quantity;
-        let div = document.createElement("div");
-        div.className = "cart-item";
-        div.innerHTML = `
-            <span><b>${item.name}</b> × ${item.quantity} - ₹${item.price * item.quantity}</span>
-            <button onclick="removeItem(${index})">Remove</button>
-        `;
-        list.appendChild(div);
+        list.innerHTML += `<div class="cart-item"><span><b>${item.name}</b> ×${item.quantity} - ₹${item.price * item.quantity}</span><button onclick="removeItem(${idx})">Remove</button></div>`;
     });
     totalEl.innerText = `Total: ₹${total}`;
 }
@@ -83,11 +67,10 @@ function removeItem(idx) {
 function placeOrder() {
     let cart = getCart();
     if (cart.length === 0) return alert("⚠️ Cart is empty!");
-
     const name = document.getElementById("name")?.value.trim();
     const phone = document.getElementById("phone")?.value.trim();
     const address = document.getElementById("address")?.value.trim();
-    const payment = document.getElementById("payment")?.value || "Cash on Delivery";
+    const payment = document.getElementById("payment")?.value;
 
     if (!name || !phone || !address) return alert("⚠️ Please fill all details!");
 
@@ -105,5 +88,5 @@ function placeOrder() {
 document.addEventListener("DOMContentLoaded", () => {
     renderControls();
     displayCart();
-    updateCartCount();
+    updateBadge();
 });

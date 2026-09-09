@@ -16,12 +16,7 @@ def cart():
 
 @app.route("/place_order", methods=["POST"])
 def place_order():
-    try:
-        data = request.get_json()
-        print("Received order:", data)
-        return jsonify({"status": "success", "message": "Order placed successfully!"}), 200
-    except Exception as e:
-        return jsonify({"status": "error", "message": str(e)}), 400
+    return jsonify({"status": "success"}), 200
 
 if __name__ == "__main__":
     app.run(debug=True)
