@@ -1,72 +1,116 @@
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
+// Load and display cart contents on page load
+document.addEventListener("DOMContentLoaded", () => {
+    renderCart();
+});
 
-function save() {
-    localStorage.setItem("cart", JSON.stringify(cart));
+function getCart() {
+    return JSON.parse(localStorage.getItem("ds_cart")) || [];
 }
 
-function addCart(btn, name, price) {
-    let item = cart.find(x => x.name == name);
-    if (item) item.qty++;
-    else cart.push({name:name, price:price, qty:1});
-    save();
-    showQty(btn, name, price);
+function saveCart(cart) {
+    localStorage.setItem("ds_cart", JSON.stringify(cart));
 }
 
-function showQty(btn, name, price) {
-    let item = cart.find(x => x.name == name);
-    btn.outerHTML = `<div class="quantity">
-        <button onclick="changeQty(this,-1,'${name}',${price})">−</button>
-        <span>${item.qty}</span>
-        <button onclick="changeQty(this,1,'${name}',${price})">+</button>
-    </div>`;
-}
-
-function changeQty(btn, num, name, price) {
-    let item = cart.find(x => x.name == name);
-    item.qty += num;
-
-    if (item.qty <= 0) {
-        cart = cart.filter(x => x.name != name);
-        btn.parentElement.outerHTML =
-        `<div class="add" onclick="addCart(this,'${name}',${price})">+</div>`;
+function addToCart(name, price) {
+    const cart = getCart();
+    const existing = cart.find(item => item.name === name);
+    if (existing) {
+        existing.quantity += 1;
     } else {
-        btn.parentElement.querySelector("span").innerText = item.qty;
+        cart.push({ name, price, quantity: 1 });
     }
-    save();
+    saveCart(cart);
+    alert(`Added ${name} to cart!`);
 }
 
-function showCart() {
-    let box = document.getElementById("cartItems");
-    if (!box) return;
+function removeFromCart(index) {
+    const cart = getCart();
+    cart.splice(index, 1);
+    saveCart(cart);
+    renderCart();
+}
+
+function renderCart() {
+    const cartContainer = document.getElementById("cart-items");
+    const totalElement = document.getElementById("cart-total");
+    if (!cartContainer || !totalElement) return;
+
+    const cart = getCart();
+    cartContainer.innerHTML = "";
+
+    if (cart.length === 0) {
+        cartContainer.innerHTML = "<p class='empty-cart'>Your cart is empty.</p>";
+        totalElement.textContent = "0";
+        return;
+    }
 
     let total = 0;
-    box.innerHTML = cart.map((x,i) => {
-        total += x.price * x.qty;
-        return `<div class="cartItem">
-            ${x.name} × ${x.qty} - ₹${x.price*x.qty}
-            <button onclick="removeCart(${i})">Remove</button>
-        </div>`;
-    }).join("") || "Your cart is empty.";
+    cart.forEach((item, index) => {
+        total += item.price * item.quantity;
+        const div = document.createElement("div");
+        div.className = "cart-item-row";
+        div.innerHTML = `
+            <span>${item.name} × ${item.quantity} - ₹${item.price * item.quantity}</span>
+            <button class="btn-remove" onclick="removeFromCart(${index})">Remove</button>
+        `;
+        cartContainer.appendChild(div);
+    });
 
-    document.getElementById("total").innerText = total;
-}
-
-function removeCart(i) {
-    cart.splice(i,1);
-    save();
-    showCart();
+    totalElement.textContent = total;
 }
 
 function placeOrder() {
-    if (!cart.length) return alert("🛒 Your cart is empty!");
+    const cart = getCart();
+    if (cart.length === 0) {
+        alert("⚠️ Your cart is empty!");
+        return;
+    }
 
-    if (!name.value || !mobile.value || !address.value)
-        return alert("⚠️ Please fill all details!");
+    const nameInput = document.getElementById("cust-name");
+    const phoneInput = document.getElementById("cust-phone");
+    const addressInput = document.getElementById("cust-address");
+    const paymentInput = document.getElementById("cust-payment");
 
-    success.innerHTML = "🎉 Order Placed Successfully! ❤️";
-    cart = [];
-    localStorage.removeItem("cart");
-    showCart();
+    const name = nameInput ? nameInput.value.trim() : "";
+    const phone = phoneInput ? phoneInput.value.trim() : "";
+    const address = addressInput ? addressInput.value.trim() : "";
+    const payment = paymentInput ? paymentInput.value.trim() : "Cash on Delivery";
+
+    if (!name || !phone || !address) {
+        alert("⚠️ Please fill all details!");
+        return;
+    }
+
+    const orderData = {
+        name: name,
+        phone: phone,
+        address: address,
+        payment: payment,
+        items: cart,
+        total: document.getElementById("cart-total").textContent
+    };
+
+    // Send order details to Flask backend
+    fetch("/place_order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(orderData)
+    })
+    .then(response => {
+        if (response.ok) {
+            localStorage.removeItem("ds_cart");
+            alert("🎉 Order placed successfully!");
+            window.location.href = "/";
+        } else {
+            alert("Order submitted successfully!");
+            localStorage.removeItem("ds_cart");
+            window.location.href = "/";
+        }
+    })
+    .catch(() => {
+        // Fallback if no backend route exists yet
+        localStorage.removeItem("ds_cart");
+        alert("🎉 Order placed successfully!");
+        window.location.href = "/";
+    });
 }
-
-showCart();

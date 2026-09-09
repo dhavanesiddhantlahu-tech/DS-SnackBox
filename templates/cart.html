@@ -1,50 +1,53 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cart - DS SnackBox</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+    <header class="navbar">
+        <div class="logo">🍪 DS SnackBox</div>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/products">Menu</a>
+            <a href="/cart" class="active">Cart 🛒</a>
+        </nav>
+    </header>
 
-<nav>
-    <h2>🍪 DS SnackBox</h2>
-    <div>
-        <a href="/">Home</a>
-        <a href="/products">Menu</a>
-        <a href="/cart">Cart 🛒</a>
-    </div>
-</nav>
+    <main class="cart-container">
+        <h2>🛒 Your Cart</h2>
+        <div id="cart-items" class="cart-list"></div>
 
-<section class="cart">
-    <h1>🛒 Your Cart</h1>
+        <div class="cart-total-section">
+            <h3>Total: ₹<span id="cart-total">0</span></h3>
+        </div>
 
-    <div id="cartItems"></div>
+        <section class="order-form-section">
+            <h3>Order Details</h3>
+            <div class="form-group">
+                <input type="text" id="cust-name" placeholder="Full Name" required>
+            </div>
+            <div class="form-group">
+                <input type="tel" id="cust-phone" placeholder="Phone Number" required>
+            </div>
+            <div class="form-group">
+                <textarea id="cust-address" placeholder="Delivery Address" rows="3" required></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="cust-payment">Payment Method</label>
+                <select id="cust-payment">
+                    <option value="Cash on Delivery">💵 Cash on Delivery</option>
+                    <option value="UPI">📱 UPI / Online</option>
+                </select>
+            </div>
 
-    <h2>Total: ₹<span id="total">0</span></h2>
+            <button type="button" class="btn-primary" onclick="placeOrder()">Place Order 🎉</button>
+        </section>
+    </main>
 
-    <h2>Order Details</h2>
-
-    <input id="name" type="text" placeholder="Your Name" required>
-    <input id="mobile" type="tel" placeholder="Mobile Number" required>
-    <textarea id="address" placeholder="Delivery Address" required></textarea>
-
-    <h3>Payment Method</h3>
-
-    <select id="payment">
-        <option>💳 Online Payment</option>
-        <option>💵 Cash on Delivery</option>
-    </select>
-
-    <button onclick="placeOrder()">Place Order 🎉</button>
-
-    <div id="success"></div>
-</section>
-
-<footer>
-    <h3>🍪 DS SnackBox</h3>
-    <p>Snacks Made for Every Craving</p>
-</footer>
-
-<script src="/static/script.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
