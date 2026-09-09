@@ -7,18 +7,19 @@
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
+
     <header>
-        <div class="logo">🍪 DS SnackBox</div>
+        <div class="logo">⚡ DS SnackBox</div>
         <nav>
             <a href="/">Home</a>
             <a href="/products" class="active">Menu</a>
-            <a href="/cart">Cart 🛒</a>
+            <a href="/cart">Cart 🛒 <span id="cart-count"></span></a>
         </nav>
     </header>
 
     <main>
-        <p style="text-align:center; color:#888; letter-spacing:1px; margin-top:10px;">OUR MENU</p>
-        <h1 style="text-align:center; margin-bottom:30px; color:#222;">Choose Your Favourite</h1>
+        <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 4px;">Explore Snacks</h2>
+        <p style="color: #666; font-size: 0.9rem; margin-bottom: 16px;">Delivery in 10 minutes</p>
 
         <div class="product-container">
             <div class="card">
@@ -26,7 +27,7 @@
                 <h3>Chocolate Cookies</h3>
                 <div class="card-footer">
                     <span class="price">₹120</span>
-                    <button class="add-btn" onclick="addToCart('Chocolate Cookies', 120)">+</button>
+                    <div data-product="Chocolate Cookies" data-price="120"></div>
                 </div>
             </div>
 
@@ -35,7 +36,7 @@
                 <h3>Butter Biscuits</h3>
                 <div class="card-footer">
                     <span class="price">₹80</span>
-                    <button class="add-btn" onclick="addToCart('Butter Biscuits', 80)">+</button>
+                    <div data-product="Butter Biscuits" data-price="80"></div>
                 </div>
             </div>
 
@@ -44,7 +45,7 @@
                 <h3>Chocolate Cupcake</h3>
                 <div class="card-footer">
                     <span class="price">₹60</span>
-                    <button class="add-btn" onclick="addToCart('Chocolate Cupcake', 60)">+</button>
+                    <div data-product="Chocolate Cupcake" data-price="60"></div>
                 </div>
             </div>
 
@@ -53,7 +54,7 @@
                 <h3>Chocolate Cake</h3>
                 <div class="card-footer">
                     <span class="price">₹450</span>
-                    <button class="add-btn" onclick="addToCart('Chocolate Cake', 450)">+</button>
+                    <div data-product="Chocolate Cake" data-price="450"></div>
                 </div>
             </div>
 
@@ -62,7 +63,7 @@
                 <h3>Crispy Mixture</h3>
                 <div class="card-footer">
                     <span class="price">₹50</span>
-                    <button class="add-btn" onclick="addToCart('Crispy Mixture', 50)">+</button>
+                    <div data-product="Crispy Mixture" data-price="50"></div>
                 </div>
             </div>
 
@@ -71,7 +72,7 @@
                 <h3>Potato Chips</h3>
                 <div class="card-footer">
                     <span class="price">₹40</span>
-                    <button class="add-btn" onclick="addToCart('Potato Chips', 40)">+</button>
+                    <div data-product="Potato Chips" data-price="40"></div>
                 </div>
             </div>
 
@@ -80,15 +81,14 @@
                 <h3>Coca Cola Can</h3>
                 <div class="card-footer">
                     <span class="price">₹35</span>
-                    <button class="add-btn" onclick="addToCart('Coca Cola Can', 35)">+</button>
+                    <div data-product="Coca Cola Can" data-price="35"></div>
                 </div>
             </div>
         </div>
     </main>
 
     <footer>
-        <h3>🍪 DS SnackBox</h3>
-        <p>Snacks Made for Every Craving</p>
+        <p>⚡ DS SnackBox • Delivered in Minutes</p>
     </footer>
 
     <script src="/static/script.js"></script>
