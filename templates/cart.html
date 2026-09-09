@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <header class="navbar">
+    <header>
         <div class="logo">🍪 DS SnackBox</div>
         <nav>
             <a href="/">Home</a>
@@ -16,37 +16,26 @@
         </nav>
     </header>
 
-    <main class="cart-container">
+    <div class="cart-container">
         <h2>🛒 Your Cart</h2>
-        <div id="cart-items" class="cart-list"></div>
+        <div id="cart-items"></div>
+        <h3 id="total-price">Total: ₹0</h3>
 
-        <div class="cart-total-section">
-            <h3>Total: ₹<span id="cart-total">0</span></h3>
-        </div>
-
-        <section class="order-form-section">
+        <div class="order-form">
             <h3>Order Details</h3>
-            <div class="form-group">
-                <input type="text" id="cust-name" placeholder="Full Name" required>
-            </div>
-            <div class="form-group">
-                <input type="tel" id="cust-phone" placeholder="Phone Number" required>
-            </div>
-            <div class="form-group">
-                <textarea id="cust-address" placeholder="Delivery Address" rows="3" required></textarea>
-            </div>
+            <input type="text" id="name" placeholder="Full Name" required>
+            <input type="tel" id="phone" placeholder="Phone Number" required>
+            <textarea id="address" placeholder="Delivery Address" rows="3" required></textarea>
             
-            <div class="form-group">
-                <label for="cust-payment">Payment Method</label>
-                <select id="cust-payment">
-                    <option value="Cash on Delivery">💵 Cash on Delivery</option>
-                    <option value="UPI">📱 UPI / Online</option>
-                </select>
-            </div>
+            <label for="payment" style="display:block; margin-top:10px; font-weight:bold;">Payment Method</label>
+            <select id="payment">
+                <option value="Cash on Delivery">💵 Cash on Delivery</option>
+                <option value="UPI">📱 UPI</option>
+            </select>
 
-            <button type="button" class="btn-primary" onclick="placeOrder()">Place Order 🎉</button>
-        </section>
-    </main>
+            <button class="order-btn" onclick="placeOrder()">Place Order 🎉</button>
+        </div>
+    </div>
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>

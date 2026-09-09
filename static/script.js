@@ -1,116 +1,122 @@
-// Load and display cart contents on page load
-document.addEventListener("DOMContentLoaded", () => {
-    renderCart();
-});
-
+// --- Cart Storage Functions ---
 function getCart() {
-    return JSON.parse(localStorage.getItem("ds_cart")) || [];
+    return JSON.parse(localStorage.getItem("cart")) || [];
 }
 
 function saveCart(cart) {
-    localStorage.setItem("ds_cart", JSON.stringify(cart));
+    localStorage.setItem("cart", JSON.stringify(cart));
 }
 
+// --- Triggered by the '+' icon on products page ---
 function addToCart(name, price) {
-    const cart = getCart();
-    const existing = cart.find(item => item.name === name);
-    if (existing) {
-        existing.quantity += 1;
+    let cart = getCart();
+    let existingItem = cart.find(item => item.name === name);
+
+    if (existingItem) {
+        existingItem.quantity += 1;
     } else {
-        cart.push({ name, price, quantity: 1 });
+        cart.push({ name: name, price: Number(price), quantity: 1 });
     }
+
     saveCart(cart);
-    alert(`Added ${name} to cart!`);
+    alert(`${name} added to cart!`);
 }
 
+// --- Remove item from cart page ---
 function removeFromCart(index) {
-    const cart = getCart();
+    let cart = getCart();
     cart.splice(index, 1);
     saveCart(cart);
-    renderCart();
+    displayCart();
 }
 
-function renderCart() {
-    const cartContainer = document.getElementById("cart-items");
-    const totalElement = document.getElementById("cart-total");
-    if (!cartContainer || !totalElement) return;
+// --- Render cart items on cart.html ---
+function displayCart() {
+    const cartItemsDiv = document.getElementById("cart-items");
+    const totalPriceEl = document.getElementById("total-price");
+    if (!cartItemsDiv || !totalPriceEl) return;
 
-    const cart = getCart();
-    cartContainer.innerHTML = "";
+    let cart = getCart();
+    cartItemsDiv.innerHTML = "";
 
     if (cart.length === 0) {
-        cartContainer.innerHTML = "<p class='empty-cart'>Your cart is empty.</p>";
-        totalElement.textContent = "0";
+        cartItemsDiv.innerHTML = "<p>Your cart is empty.</p>";
+        totalPriceEl.innerText = "Total: ₹0";
         return;
     }
 
     let total = 0;
     cart.forEach((item, index) => {
-        total += item.price * item.quantity;
-        const div = document.createElement("div");
-        div.className = "cart-item-row";
-        div.innerHTML = `
-            <span>${item.name} × ${item.quantity} - ₹${item.price * item.quantity}</span>
-            <button class="btn-remove" onclick="removeFromCart(${index})">Remove</button>
+        let itemTotal = item.price * item.quantity;
+        total += itemTotal;
+
+        let itemRow = document.createElement("div");
+        itemRow.className = "cart-item";
+        itemRow.style.display = "flex";
+        itemRow.style.justifyContent = "space-between";
+        itemRow.style.alignItems = "center";
+        itemRow.style.margin = "8px 0";
+        itemRow.style.padding = "8px 12px";
+        itemRow.style.background = "#fff3e0";
+        itemRow.style.borderRadius = "5px";
+
+        itemRow.innerHTML = `
+            <span>${item.name} × ${item.quantity} - ₹${itemTotal}</span>
+            <button onclick="removeFromCart(${index})" style="background:#e65100; color:white; border:none; padding:4px 8px; border-radius:4px; cursor:pointer;">Remove</button>
         `;
-        cartContainer.appendChild(div);
+        cartItemsDiv.appendChild(itemRow);
     });
 
-    totalElement.textContent = total;
+    totalPriceEl.innerText = `Total: ₹${total}`;
 }
 
+// --- Order Validation and Placement ---
 function placeOrder() {
-    const cart = getCart();
+    let cart = getCart();
     if (cart.length === 0) {
-        alert("⚠️ Your cart is empty!");
+        alert("⚠️ Your cart is empty! Please add items first.");
         return;
     }
 
-    const nameInput = document.getElementById("cust-name");
-    const phoneInput = document.getElementById("cust-phone");
-    const addressInput = document.getElementById("cust-address");
-    const paymentInput = document.getElementById("cust-payment");
+    const nameEl = document.getElementById("name");
+    const phoneEl = document.getElementById("phone");
+    const addressEl = document.getElementById("address");
+    const paymentEl = document.getElementById("payment");
 
-    const name = nameInput ? nameInput.value.trim() : "";
-    const phone = phoneInput ? phoneInput.value.trim() : "";
-    const address = addressInput ? addressInput.value.trim() : "";
-    const payment = paymentInput ? paymentInput.value.trim() : "Cash on Delivery";
+    const name = nameEl ? nameEl.value.trim() : "";
+    const phone = phoneEl ? phoneEl.value.trim() : "";
+    const address = addressEl ? addressEl.value.trim() : "";
+    const payment = paymentEl ? paymentEl.value : "Cash on Delivery";
 
     if (!name || !phone || !address) {
         alert("⚠️ Please fill all details!");
         return;
     }
 
-    const orderData = {
+    const orderPayload = {
         name: name,
         phone: phone,
         address: address,
         payment: payment,
-        items: cart,
-        total: document.getElementById("cart-total").textContent
+        cart: cart
     };
 
-    // Send order details to Flask backend
     fetch("/place_order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(orderData)
+        body: JSON.stringify(orderPayload)
     })
-    .then(response => {
-        if (response.ok) {
-            localStorage.removeItem("ds_cart");
-            alert("🎉 Order placed successfully!");
-            window.location.href = "/";
-        } else {
-            alert("Order submitted successfully!");
-            localStorage.removeItem("ds_cart");
-            window.location.href = "/";
-        }
+    .then(() => {
+        localStorage.removeItem("cart");
+        alert("🎉 Order placed successfully!");
+        window.location.href = "/";
     })
     .catch(() => {
-        // Fallback if no backend route exists yet
-        localStorage.removeItem("ds_cart");
+        localStorage.removeItem("cart");
         alert("🎉 Order placed successfully!");
         window.location.href = "/";
     });
 }
+
+// Auto-run display logic when on cart page
+document.addEventListener("DOMContentLoaded", displayCart);
