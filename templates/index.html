@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DS SnackBox - Fast Delivery</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <title>DS SnackBox - Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <header>
-        <div class="brand-header">
-            <div class="logo">⚡ DS SnackBox</div>
-            <div class="delivery-badge">⚡ Delivery in 10 mins • Pune</div>
+        <div class="logo-box">
+            <a href="/" class="logo">⚡ DS SnackBox</a>
+            <span class="badge">⚡ 10 mins • Pune</span>
         </div>
         <nav>
             <a href="/" class="active">Home</a>
@@ -19,82 +19,76 @@
         </nav>
     </header>
 
-    <!-- Category Sub-Bar -->
-    <div class="category-nav">
-        <a href="/products" class="cat-item active">🛍️ All</a>
-        <a href="/products" class="cat-item">☕ Cafe</a>
-        <a href="/products" class="cat-item">🍪 Cookies</a>
-        <a href="/products" class="cat-item">🧁 Bakery</a>
-        <a href="/products" class="cat-item">🍟 Munchies</a>
-        <a href="/products" class="cat-item">🥤 Drinks</a>
+    <div class="categories">
+        <a href="/products" class="pill active">🛍️ All</a>
+        <a href="/products" class="pill">🍪 Cookies</a>
+        <a href="/products" class="pill">🧁 Bakery</a>
+        <a href="/products" class="pill">🍟 Munchies</a>
+        <a href="/products" class="pill">🥤 Drinks</a>
     </div>
 
-    <main class="home-main">
-        <!-- Hero Promo Cards -->
-        <div class="banner-grid">
-            <div class="promo-card promo-pink">
-                <span class="tag">SUPER SAVINGS</span>
-                <h2>Zero Delivery Fee</h2>
-                <p>On all orders above ₹99 today!</p>
-                <div class="perks">
-                    <span>✔ ₹0 Handling</span>
-                    <span>✔ ₹0 Surge Fee</span>
+    <main>
+        <div class="banner-row">
+            <div class="banner-card b-pink">
+                <div>
+                    <span class="tag">SUPER SAVINGS</span>
+                    <h3>Zero Delivery Fee</h3>
+                    <p>On all orders above ₹99 today!</p>
                 </div>
-                <a href="/products" class="banner-btn">Order Now →</a>
+                <a href="/products" class="b-btn">Order Now →</a>
             </div>
-
-            <div class="promo-card promo-blue">
-                <span class="tag">FRESH & CRISP</span>
-                <h2>Cravings Corner 🍿</h2>
-                <p>Freshly baked treats & chilled sodas ready to ship.</p>
-                <div class="perks">
-                    <span>✔ 100% Quality Assured</span>
-                    <span>✔ Instant Dispatch</span>
+            <div class="banner-card b-blue">
+                <div>
+                    <span class="tag">FRESH & CRISP</span>
+                    <h3>Cravings Corner 🍿</h3>
+                    <p>Fresh cookies & chilled sodas ready to ship.</p>
                 </div>
-                <a href="/products" class="banner-btn">Explore Menu →</a>
+                <a href="/products" class="b-btn">Explore Menu →</a>
             </div>
         </div>
 
-        <!-- Quick Pick Snacks Preview -->
-        <section class="quick-picks">
-            <div class="section-title">
-                <h2>Popular Right Now 🔥</h2>
-                <a href="/products" class="view-all">View All →</a>
-            </div>
+        <div class="section-head">
+            <h2>Popular Right Now 🔥</h2>
+            <a href="/products">View All →</a>
+        </div>
 
-            <div class="preview-grid">
-                <div class="mini-card">
-                    <img src="/static/images/cookies.jpg" alt="Chocolate Cookies">
-                    <h4>Chocolate Cookies</h4>
-                    <p>₹120</p>
-                    <a href="/products" class="mini-btn">Add</a>
-                </div>
-                <div class="mini-card">
-                    <img src="/static/images/chips.jpg" alt="Potato Chips">
-                    <h4>Potato Chips</h4>
-                    <p>₹40</p>
-                    <a href="/products" class="mini-btn">Add</a>
-                </div>
-                <div class="mini-card">
-                    <img src="/static/images/cake.jpg" alt="Chocolate Cake">
-                    <h4>Chocolate Cake</h4>
-                    <p>₹450</p>
-                    <a href="/products" class="mini-btn">Add</a>
-                </div>
-                <div class="mini-card">
-                    <img src="/static/images/coca_cola.jpg" alt="Coca Cola Can">
-                    <h4>Coca Cola</h4>
-                    <p>₹35</p>
-                    <a href="/products" class="mini-btn">Add</a>
+        <div class="grid">
+            <div class="card">
+                <div class="img-wrap"><img src="{{ url_for('static', filename='images/cookies.jpg') }}" alt="Cookies"></div>
+                <h4>Chocolate Cookies</h4>
+                <div class="card-bottom">
+                    <span class="price">₹120</span>
+                    <a href="/products" class="b-btn" style="padding: 5px 12px;">View</a>
                 </div>
             </div>
-        </section>
+            <div class="card">
+                <div class="img-wrap"><img src="{{ url_for('static', filename='images/chips.jpg') }}" alt="Chips"></div>
+                <h4>Potato Chips</h4>
+                <div class="card-bottom">
+                    <span class="price">₹40</span>
+                    <a href="/products" class="b-btn" style="padding: 5px 12px;">View</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="img-wrap"><img src="{{ url_for('static', filename='images/cake.jpg') }}" alt="Cake"></div>
+                <h4>Chocolate Cake</h4>
+                <div class="card-bottom">
+                    <span class="price">₹450</span>
+                    <a href="/products" class="b-btn" style="padding: 5px 12px;">View</a>
+                </div>
+            </div>
+            <div class="card">
+                <div class="img-wrap"><img src="{{ url_for('static', filename='images/coca_cola.jpg') }}" alt="Drink"></div>
+                <h4>Coca Cola</h4>
+                <div class="card-bottom">
+                    <span class="price">₹35</span>
+                    <a href="/products" class="b-btn" style="padding: 5px 12px;">View</a>
+                </div>
+            </div>
+        </div>
     </main>
 
-    <footer>
-        <p>⚡ DS SnackBox • Delivered in Minutes</p>
-    </footer>
-
-    <script src="/static/script.js"></script>
+    <footer><p>⚡ DS SnackBox • Delivered in Minutes</p></footer>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

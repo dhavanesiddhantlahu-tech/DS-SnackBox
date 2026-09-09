@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cart - DS SnackBox</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <header>
-        <a href="/" class="logo">⚡ DS SnackBox</a>
+        <div class="logo-box">
+            <a href="/" class="logo">⚡ DS SnackBox</a>
+        </div>
         <nav>
             <a href="/">Home</a>
             <a href="/products">Menu</a>
@@ -17,27 +19,27 @@
     </header>
 
     <main>
-        <div class="cart-box">
-            <h2 style="margin-bottom: 12px;">🛒 Review Cart</h2>
+        <div class="cart-wrap">
+            <h2 style="margin-bottom: 14px;">🛒 Review Cart</h2>
             <div id="cart-items"></div>
-            <div id="total-price" class="total-price">Total: ₹0</div>
+            <div id="total-price" class="cart-total">Total: ₹0</div>
 
-            <h3 style="font-size: 1rem; margin-bottom: 10px;">Delivery Details</h3>
+            <h3 style="font-size: 1rem; margin-bottom: 10px;">Delivery Address</h3>
             <input type="text" id="name" placeholder="Full Name" required>
             <input type="tel" id="phone" placeholder="Phone Number" required>
             <textarea id="address" placeholder="Delivery Address" rows="2" required></textarea>
 
-            <label style="font-size: 0.85rem; font-weight: 600; color: #495057;">Payment Method</label>
+            <label style="font-size: 0.85rem; font-weight: 600; color: #475569;">Payment Method</label>
             <select id="payment">
                 <option value="Cash on Delivery">💵 Cash on Delivery</option>
                 <option value="Online Payment">📱 Online Payment</option>
             </select>
 
-            <button class="btn-order" onclick="placeOrder()">Place Order 🎉</button>
+            <button class="btn-submit" onclick="placeOrder()">Place Order 🎉</button>
         </div>
     </main>
 
     <footer><p>⚡ DS SnackBox • Delivered in Minutes</p></footer>
-    <script src="/static/script.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

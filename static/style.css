@@ -2,12 +2,12 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: system-ui, -apple-system, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 body {
     background: #f8f9fa;
-    color: #212529;
+    color: #1e293b;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -15,39 +15,42 @@ body {
 
 /* Navbar */
 header {
-    background: #fff;
+    background: #ffffff;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 24px;
-    border-bottom: 1px solid #e9ecef;
+    padding: 14px 24px;
+    border-bottom: 1px solid #e2e8f0;
     position: sticky;
     top: 0;
     z-index: 100;
 }
 
+.logo-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 .logo {
     font-size: 1.25rem;
     font-weight: 800;
-    color: #e63946;
+    color: #ff3366;
     text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 8px;
 }
 
 .badge {
     font-size: 0.75rem;
-    background: #e9ecef;
-    color: #495057;
-    padding: 4px 8px;
+    background: #f1f5f9;
+    color: #475569;
+    padding: 4px 10px;
     border-radius: 12px;
     font-weight: 600;
 }
 
 nav a {
     text-decoration: none;
-    color: #495057;
+    color: #475569;
     font-weight: 600;
     margin-left: 18px;
     font-size: 0.95rem;
@@ -55,16 +58,16 @@ nav a {
 
 nav a.active,
 nav a:hover {
-    color: #e63946;
+    color: #ff3366;
 }
 
-/* Category Pills */
+/* Category Bar */
 .categories {
     display: flex;
     gap: 8px;
     padding: 10px 24px;
-    background: #fff;
-    border-bottom: 1px solid #e9ecef;
+    background: #ffffff;
+    border-bottom: 1px solid #e2e8f0;
     overflow-x: auto;
 }
 
@@ -72,20 +75,20 @@ nav a:hover {
     text-decoration: none;
     font-size: 0.85rem;
     font-weight: 600;
-    color: #495057;
-    background: #f1f3f5;
+    color: #475569;
+    background: #f1f5f9;
     padding: 6px 14px;
-    border-radius: 16px;
+    border-radius: 20px;
     white-space: nowrap;
 }
 
 .pill:hover,
 .pill.active {
-    background: #ffe3e3;
-    color: #e63946;
+    background: #ffe4ec;
+    color: #ff3366;
 }
 
-/* Main Container & Promos */
+/* Main Container */
 main {
     max-width: 1050px;
     width: 100%;
@@ -94,114 +97,125 @@ main {
     flex: 1;
 }
 
-.promo-banner {
+/* Promo Banners */
+.banner-row {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 14px;
+    gap: 16px;
     margin-bottom: 24px;
 }
 
-.promo-card {
-    padding: 18px;
-    border-radius: 12px;
+.banner-card {
+    padding: 20px;
+    border-radius: 14px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    min-height: 130px;
+    min-height: 140px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
 }
 
-.card-pink {
+.b-pink {
     background: #fff0f3;
-    border: 1px solid #ffccd5;
+    border: 1px solid #ffd1dc;
 }
 
-.card-blue {
-    background: #e8f4fd;
-    border: 1px solid #bde0fe;
+.b-blue {
+    background: #f0f7ff;
+    border: 1px solid #cfe2ff;
 }
 
-.promo-card h3 {
-    font-size: 1.2rem;
-    margin-bottom: 4px;
+.banner-card .tag {
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: #ff3366;
+    letter-spacing: 0.5px;
 }
 
-.promo-card p {
-    font-size: 0.85rem;
-    color: #6c757d;
+.banner-card h3 {
+    font-size: 1.25rem;
+    font-weight: 800;
+    margin: 4px 0;
+}
+
+.banner-card p {
+    font-size: 0.88rem;
+    color: #64748b;
     margin-bottom: 12px;
 }
 
-.promo-btn {
+.b-btn {
     align-self: flex-start;
-    background: #212529;
+    background: #0f172a;
     color: #fff;
     text-decoration: none;
     font-size: 0.8rem;
     font-weight: 700;
-    padding: 6px 14px;
-    border-radius: 6px;
+    padding: 7px 16px;
+    border-radius: 8px;
 }
 
-/* Product Grid & Auto-Fit Cards */
-.heading-row {
+/* Product Grid */
+.section-head {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 14px;
 }
 
-.heading-row h2 {
-    font-size: 1.2rem;
+.section-head h2 {
+    font-size: 1.25rem;
+    font-weight: 800;
 }
 
-.heading-row a {
+.section-head a {
     text-decoration: none;
-    color: #e63946;
-    font-weight: 600;
+    color: #ff3366;
+    font-weight: 700;
     font-size: 0.9rem;
 }
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 14px;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 16px;
 }
 
 .card {
-    background: #fff;
-    border: 1px solid #e9ecef;
-    border-radius: 10px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
     padding: 12px;
     display: flex;
     flex-direction: column;
 }
 
-/* Image Auto-Fit Container (Handles any aspect ratio seamlessly) */
-.img-box {
+/* Image Auto-Fit Container: Never breaks or stretches */
+.img-wrap {
     width: 100%;
-    height: 130px;
-    background: #fff;
+    height: 140px;
+    background: #ffffff;
     border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 }
 
-.img-box img {
+.img-wrap img {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
 }
 
 .card h4 {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
+    font-weight: 600;
     margin-bottom: 6px;
-    color: #343a40;
 }
 
-.card-footer {
+.card-bottom {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -211,30 +225,30 @@ main {
 
 .price {
     font-weight: 800;
-    font-size: 1rem;
+    font-size: 1.05rem;
 }
 
-/* Stepper & ADD Buttons */
+/* Stepper and Add Buttons */
 .btn-add {
-    background: #fff;
-    color: #e63946;
-    border: 1.5px solid #e63946;
-    padding: 5px 14px;
-    border-radius: 6px;
+    background: #ffffff;
+    color: #ff3366;
+    border: 1.5px solid #ff3366;
+    padding: 5px 16px;
+    border-radius: 8px;
     font-weight: 700;
-    font-size: 0.8rem;
+    font-size: 0.82rem;
     cursor: pointer;
 }
 
 .btn-add:hover {
-    background: #ffe3e3;
+    background: #ffe4ec;
 }
 
 .stepper {
     display: flex;
     align-items: center;
-    background: #e63946;
-    border-radius: 6px;
+    background: #ff3366;
+    border-radius: 8px;
     overflow: hidden;
 }
 
@@ -244,25 +258,25 @@ main {
     color: #fff;
     font-weight: bold;
     font-size: 1rem;
-    padding: 3px 10px;
+    padding: 4px 10px;
     cursor: pointer;
 }
 
 .stepper span {
     color: #fff;
     font-weight: 700;
-    font-size: 0.85rem;
+    font-size: 0.88rem;
     padding: 0 4px;
 }
 
-/* Cart Box */
-.cart-box {
-    max-width: 460px;
+/* Cart Page */
+.cart-wrap {
+    max-width: 480px;
     margin: 24px auto;
     background: #fff;
-    padding: 20px;
+    padding: 22px;
     border-radius: 12px;
-    border: 1px solid #e9ecef;
+    border: 1px solid #e2e8f0;
 }
 
 .cart-item {
@@ -270,12 +284,12 @@ main {
     justify-content: space-between;
     align-items: center;
     padding: 10px 0;
-    border-bottom: 1px solid #f1f3f5;
+    border-bottom: 1px solid #f1f5f9;
     font-size: 0.9rem;
 }
 
 .cart-item button {
-    background: #ff6b6b;
+    background: #ef4444;
     color: #fff;
     border: none;
     padding: 4px 8px;
@@ -284,39 +298,39 @@ main {
     font-size: 0.75rem;
 }
 
-.total-price {
+.cart-total {
     text-align: right;
     margin: 16px 0;
     font-weight: 800;
-    color: #e63946;
-    font-size: 1.1rem;
+    color: #ff3366;
+    font-size: 1.15rem;
 }
 
-.cart-box input,
-.cart-box textarea,
-.cart-box select {
+.cart-wrap input,
+.cart-wrap textarea,
+.cart-wrap select {
     width: 100%;
     margin-bottom: 10px;
-    padding: 8px 10px;
-    border: 1px solid #ced4da;
-    border-radius: 6px;
+    padding: 9px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
     outline: none;
     font-size: 0.9rem;
 }
 
-.cart-box input:focus,
-.cart-box textarea:focus,
-.cart-box select:focus {
-    border-color: #e63946;
+.cart-wrap input:focus,
+.cart-wrap textarea:focus,
+.cart-wrap select:focus {
+    border-color: #ff3366;
 }
 
-.btn-order {
+.btn-submit {
     width: 100%;
-    background: #e63946;
+    background: #ff3366;
     color: #fff;
     border: none;
-    padding: 10px;
-    border-radius: 6px;
+    padding: 12px;
+    border-radius: 8px;
     font-weight: 700;
     cursor: pointer;
     font-size: 0.95rem;
@@ -327,8 +341,8 @@ footer {
     background: #fff;
     text-align: center;
     padding: 16px;
-    border-top: 1px solid #e9ecef;
+    border-top: 1px solid #e2e8f0;
     margin-top: auto;
     font-size: 0.85rem;
-    color: #6c757d;
+    color: #64748b;
 }

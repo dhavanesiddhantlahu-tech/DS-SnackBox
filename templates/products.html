@@ -4,11 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu - DS SnackBox</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <header>
-        <a href="/" class="logo">⚡ DS SnackBox</a>
+        <div class="logo-box">
+            <a href="/" class="logo">⚡ DS SnackBox</a>
+            <span class="badge">⚡ 10 mins</span>
+        </div>
         <nav>
             <a href="/">Home</a>
             <a href="/products" class="active">Menu</a>
@@ -17,64 +20,64 @@
     </header>
 
     <main>
-        <div class="heading-row">
+        <div class="section-head">
             <h2>Our Snack Menu</h2>
-            <span style="font-size: 0.85rem; color:#6c757d;">Fast 10-min delivery</span>
+            <span style="font-size: 0.85rem; color:#64748b;">Instant Delivery</span>
         </div>
 
         <div class="grid">
             <div class="card">
-                <div class="img-box"><img src="/static/images/cookies.jpg" alt="Chocolate Cookies"></div>
+                <div class="img-wrap"><img src="{{ url_for('static', filename='images/cookies.jpg') }}" alt="Cookies"></div>
                 <h4>Chocolate Cookies</h4>
-                <div class="card-footer">
+                <div class="card-bottom">
                     <span class="price">₹120</span>
                     <div data-product="Chocolate Cookies" data-price="120"></div>
                 </div>
             </div>
             <div class="card">
-                <div class="img-box"><img src="/static/images/biscuits.jpg" alt="Butter Biscuits"></div>
+                <div class="img-wrap"><img src="{{ url_for('static', filename='images/biscuits.jpg') }}" alt="Biscuits"></div>
                 <h4>Butter Biscuits</h4>
-                <div class="card-footer">
+                <div class="card-bottom">
                     <span class="price">₹80</span>
                     <div data-product="Butter Biscuits" data-price="80"></div>
                 </div>
             </div>
             <div class="card">
-                <div class="img-box"><img src="/static/images/cupcake.jpg" alt="Chocolate Cupcake"></div>
+                <div class="img-wrap"><img src="{{ url_for('static', filename='images/cupcake.jpg') }}" alt="Cupcake"></div>
                 <h4>Chocolate Cupcake</h4>
-                <div class="card-footer">
+                <div class="card-bottom">
                     <span class="price">₹60</span>
                     <div data-product="Chocolate Cupcake" data-price="60"></div>
                 </div>
             </div>
             <div class="card">
-                <div class="img-box"><img src="/static/images/cake.jpg" alt="Chocolate Cake"></div>
+                <div class="img-wrap"><img src="{{ url_for('static', filename='images/cake.jpg') }}" alt="Cake"></div>
                 <h4>Chocolate Cake</h4>
-                <div class="card-footer">
+                <div class="card-bottom">
                     <span class="price">₹450</span>
                     <div data-product="Chocolate Cake" data-price="450"></div>
                 </div>
             </div>
             <div class="card">
-                <div class="img-box"><img src="/static/images/snack.jpg" alt="Crispy Mixture"></div>
+                <div class="img-wrap"><img src="{{ url_for('static', filename='images/snack.jpg') }}" alt="Snack"></div>
                 <h4>Crispy Mixture</h4>
-                <div class="card-footer">
+                <div class="card-bottom">
                     <span class="price">₹50</span>
                     <div data-product="Crispy Mixture" data-price="50"></div>
                 </div>
             </div>
             <div class="card">
-                <div class="img-box"><img src="/static/images/chips.jpg" alt="Potato Chips"></div>
+                <div class="img-wrap"><img src="{{ url_for('static', filename='images/chips.jpg') }}" alt="Chips"></div>
                 <h4>Potato Chips</h4>
-                <div class="card-footer">
+                <div class="card-bottom">
                     <span class="price">₹40</span>
                     <div data-product="Potato Chips" data-price="40"></div>
                 </div>
             </div>
             <div class="card">
-                <div class="img-box"><img src="/static/images/coca_cola.jpg" alt="Coca Cola Can"></div>
+                <div class="img-wrap"><img src="{{ url_for('static', filename='images/coca_cola.jpg') }}" alt="Drink"></div>
                 <h4>Coca Cola Can</h4>
-                <div class="card-footer">
+                <div class="card-bottom">
                     <span class="price">₹35</span>
                     <div data-product="Coca Cola Can" data-price="35"></div>
                 </div>
@@ -83,6 +86,6 @@
     </main>
 
     <footer><p>⚡ DS SnackBox • Delivered in Minutes</p></footer>
-    <script src="/static/script.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

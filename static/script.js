@@ -1,5 +1,5 @@
 function getCart() {
-    try { return JSON.parse(localStorage.getItem("cart")) || []; } catch (e) { return []; }
+    try { return JSON.parse(localStorage.getItem("cart")) || []; } catch(e) { return []; }
 }
 function saveCart(cart) {
     localStorage.setItem("cart", JSON.stringify(cart));
@@ -13,7 +13,6 @@ function updateCartCount() {
     }
 }
 
-// Add or Increment
 function addToCart(name, price) {
     let cart = getCart();
     let item = cart.find(i => i.name === name);
@@ -22,18 +21,16 @@ function addToCart(name, price) {
     renderControls();
 }
 
-// Decrement or Remove
 function decreaseItem(name) {
     let cart = getCart();
-    let index = cart.findIndex(i => i.name === name);
-    if (index !== -1) {
-        cart[index].quantity > 1 ? cart[index].quantity-- : cart.splice(index, 1);
+    let idx = cart.findIndex(i => i.name === name);
+    if (idx !== -1) {
+        cart[idx].quantity > 1 ? cart[idx].quantity-- : cart.splice(idx, 1);
         saveCart(cart);
         renderControls();
     }
 }
 
-// Render dynamic stepper on product page
 function renderControls() {
     const cart = getCart();
     document.querySelectorAll("[data-product]").forEach(el => {
@@ -54,7 +51,6 @@ function renderControls() {
     });
 }
 
-// Render items in cart.html
 function displayCart() {
     const list = document.getElementById("cart-items");
     const totalEl = document.getElementById("total-price");
