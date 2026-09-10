@@ -1,32 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cart - DS SnackBox</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
+
 <body>
     <header>
         <a href="/" class="logo">⚡ DS SnackBox</a>
-        <nav><a href="/">Home</a><a href="/products">Menu</a><a href="/cart" class="active">Cart 🛒</a></nav>
+        <nav><a href="/">Home</a><a href="/cart" class="active">Cart 🛒</a><a href="/reviews">Reviews ⭐</a></nav>
     </header>
-
     <main>
-        <div class="cart-wrap">
-            <h2 style="margin-bottom:12px;">🛒 Review Cart</h2>
+        <div class="box">
+            <h2>🛒 Review Cart</h2>
             <div id="cart-items"></div>
-            <div id="total-price" class="cart-total">Total: ₹0</div>
-
-            <h3 style="font-size:0.95rem;margin-bottom:8px;">Delivery Address</h3>
-            <input type="text" id="name" placeholder="Full Name">
-            <input type="tel" id="phone" placeholder="Phone Number">
-            <textarea id="address" placeholder="Delivery Address" rows="2"></textarea>
-            <select id="payment"><option>💵 Cash on Delivery</option><option>📱 Online Payment</option></select>
-            <button class="btn-submit" onclick="placeOrder()">Place Order 🎉</button>
+            <div id="total-price" style="text-align:right;font-weight:800;color:#ff3366;margin:12px 0;">Total: ₹0</div>
+            <input type="text" id="name" placeholder="Full Name" required>
+            <input type="tel" id="phone" placeholder="Phone Number" required>
+            <textarea id="address" placeholder="Delivery Address" rows="2" required></textarea>
+            <select id="payment">
+                <option>💵 Cash on Delivery</option>
+                <option>📱 UPI / Online</option>
+            </select>
+            <button class="btn-sub" onclick="placeOrder()">Place Order 🎉</button>
         </div>
     </main>
-
-    <footer><p>⚡ DS SnackBox • Delivered in Minutes</p></footer>
+    <footer>
+        <p>⚡ DS SnackBox • Delivered in Minutes</p>
+    </footer>
     <script src="/static/script.js"></script>
 </body>
+
 </html>

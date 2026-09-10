@@ -10,30 +10,132 @@
 
 <body>
     <header>
-        <a href="/" class="logo">⚡ DS SnackBox <span class="badge">⚡ 10 mins • Pune</span></a>
-        <nav><a href="/" class="active">Home</a><a href="/products">Menu</a><a href="/cart">Cart 🛒 <span
-                    id="cart-count"></span></a></nav>
+        <a href="/" class="logo">⚡ DS SnackBox</a>
+        <nav><a href="/" class="active">Home</a><a href="/cart">Cart 🛒 <span id="cart-count"></span></a><a
+                href="/reviews">Reviews ⭐</a></nav>
     </header>
-
     <main>
-        <div class="banner-row">
-            <div class="banner-card b-pink">
-                <div><span class="tag">SUPER SAVINGS</span>
-                    <h3>Zero Delivery Fee</h3>
-                    <p>On all orders above ₹99 today!</p>
-                </div>
-                <a href="/products" class="b-btn">Order Now →</a>
+        <div class="banners">
+            <div class="b-card">
+                <h3>Zero Delivery Fee ⚡</h3>
+                <p>On all snack orders above ₹99!</p><a href="#menu" class="b-btn">Order Now ↓</a>
             </div>
-            <div class="banner-card b-blue">
-                <div><span class="tag">FRESH & CRISP</span>
-                    <h3>Cravings Corner 🍿</h3>
-                    <p>Fresh cookies & chilled drinks ready to ship.</p>
+            <div class="b-card blue">
+                <h3>Customer Love ⭐</h3>
+                <p>Real ratings from everyday snackers.</p><a href="/reviews" class="b-btn">Read Reviews →</a>
+            </div>
+        </div>
+        <div class="sec-head" id="menu">
+            <h2>Snack Menu</h2><span style="color:#64748b;font-size:0.85rem;">⚡ 10 mins delivery</span>
+        </div>
+        <div class="grid">
+            <div class="card">
+                <div class="img-wrap"><img src="/static/images/dairy_milk.png"></div>
+                <h4>Dairy Milk Silk</h4>
+                <div class="card-bot"><span class="price">₹80</span>
+                    <div data-p="Dairy Milk Silk" data-pr="80"></div>
                 </div>
-                <a href="/products" class="b-btn">Explore Menu →</a>
+            </div>
+            <div class="card">
+                <div class="img-wrap"><img src="/static/images/gulab_jamun.png"></div>
+                <h4>Gulab Jamun (2 pcs)</h4>
+                <div class="card-bot"><span class="price">₹50</span>
+                    <div data-p="Gulab Jamun" data-pr="50"></div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="img-wrap"><img src="/static/images/rasgulla.png"></div>
+                <h4>Rasgulla (2 pcs)</h4>
+                <div class="card-bot"><span class="price">₹50</span>
+                    <div data-p="Rasgulla" data-pr="50"></div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="img-wrap"><img src="/static/images/ice_cream.png"></div>
+                <h4>Vanilla Ice Cream</h4>
+                <div class="card-bot"><span class="price">₹40</span>
+                    <div data-p="Vanilla Ice Cream" data-pr="40"></div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="img-wrap"><img src="/static/images/cake.png"></div>
+                <h4>Chocolate Cake</h4>
+                <div class="card-bot"><span class="price">₹450</span>
+                    <div data-p="Chocolate Cake" data-pr="450"></div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="img-wrap"><img src="/static/images/cupcake.png"></div>
+                <h4>Chocolate Cupcake</h4>
+                <div class="card-bot"><span class="price">₹60</span>
+                    <div data-p="Chocolate Cupcake" data-pr="60"></div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="img-wrap"><img src="/static/images/cookies.png"></div>
+                <h4>Chocolate Cookies</h4>
+                <div class="card-bot"><span class="price">₹120</span>
+                    <div data-p="Chocolate Cookies" data-pr="120"></div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="img-wrap"><img src="/static/images/biscuits.png"></div>
+                <h4>Butter Biscuits</h4>
+                <div class="card-bot"><span class="price">₹80</span>
+                    <div data-p="Butter Biscuits" data-pr="80"></div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="img-wrap"><img src="/static/images/puff.png"></div>
+                <h4>Crispy Veg Puff</h4>
+                <div class="card-bot"><span class="price">₹25</span>
+                    <div data-p="Crispy Veg Puff" data-pr="25"></div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="img-wrap"><img src="/static/images/kurkure.png"></div>
+                <h4>Kurkure Masala</h4>
+                <div class="card-bot"><span class="price">₹20</span>
+                    <div data-p="Kurkure Masala" data-pr="20"></div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="img-wrap"><img src="/static/images/chips.png"></div>
+                <h4>Salted Chips</h4>
+                <div class="card-bot"><span class="price">₹30</span>
+                    <div data-p="Salted Chips" data-pr="30"></div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="img-wrap"><img src="/static/images/doritos.png"></div>
+                <h4>Doritos Cheese</h4>
+                <div class="card-bot"><span class="price">₹50</span>
+                    <div data-p="Doritos Cheese" data-pr="50"></div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="img-wrap"><img src="/static/images/pop_corn.png"></div>
+                <h4>Butter Popcorn</h4>
+                <div class="card-bot"><span class="price">₹40</span>
+                    <div data-p="Butter Popcorn" data-pr="40"></div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="img-wrap"><img src="/static/images/coca_cola.png"></div>
+                <h4>Coca Cola</h4>
+                <div class="card-bot"><span class="price">₹40</span>
+                    <div data-p="Coca Cola" data-pr="40"></div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="img-wrap"><img src="/static/images/pepsi.png"></div>
+                <h4>Pepsi Can</h4>
+                <div class="card-bot"><span class="price">₹40</span>
+                    <div data-p="Pepsi Can" data-pr="40"></div>
+                </div>
             </div>
         </div>
     </main>
-
     <footer>
         <p>⚡ DS SnackBox • Delivered in Minutes</p>
     </footer>
