@@ -1,67 +1,206 @@
-const getC = () => JSON.parse(localStorage.getItem("c") || "[]");
-const setC = (c) => { localStorage.setItem("c", JSON.stringify(c)); sync(); };
+// Cart store directly in LocalStorage
+let cart = JSON.parse(localStorage.getItem('sb_cart')) || {};
+let discountAmt = 0;
 
-function sync() {
-    const c = getC(), b = document.getElementById("cart-count");
-    if (b) b.innerText = c.length ? `(${c.reduce((s, i) => s + i.q, 0)})` : "";
-    document.querySelectorAll("[data-p]").forEach(el => {
-        const name = el.getAttribute("data-p"), price = +el.getAttribute("data-pr");
-        const item = c.find(i => i.n === name);
-        el.innerHTML = item ? `<div class="stepper"><button onclick="mod('${name}',-1)">-</button><span>${item.q}</span><button onclick="mod('${name}',1)">+</button></div>`
-            : `<button class="btn-add" onclick="mod('${name}',1,${price})">ADD</button>`;
+document.addEventListener('DOMContentLoaded', () => {
+    updateCartDisplay();
+    setupFilters();
+    if (window.location.pathname === '/cart') {
+        renderCartPage();
+    }
+});
+
+// Add item to cart
+function addItem(id, name, price, unit, img) {
+    if (!cart[id]) {
+        cart[id] = { id, name, price, unit, img, qty: 1 };
+    } else {
+        cart[id].qty += 1;
+    }
+    saveCart();
+    toast(`Added ${name}!`);
+}
+
+// Change Quantity (+1 or -1)
+function changeQty(id, delta) {
+    if (!cart[id]) return;
+    cart[id].qty += delta;
+    if (cart[id].qty <= 0) delete cart[id];
+    saveCart();
+}
+
+function saveCart() {
+    localStorage.setItem('sb_cart', JSON.stringify(cart));
+    updateCartDisplay();
+    if (window.location.pathname === '/cart') renderCartPage();
+}
+
+// Update Header Badges & Stepper Buttons
+function updateCartDisplay() {
+    let totalItems = 0;
+    let totalPrice = 0;
+
+    Object.values(cart).forEach(item => {
+        totalItems += item.qty;
+        totalPrice += item.price * item.qty;
+    });
+
+    const countEl = document.getElementById('navCount');
+    const totalEl = document.getElementById('navTotal');
+    if (countEl) countEl.innerText = `${totalItems} item${totalItems === 1 ? '' : 's'}`;
+    if (totalEl) totalEl.innerText = `₹${totalPrice}`;
+
+    // Update buttons on product cards
+    document.querySelectorAll('[id^="btn-wrap-"]').forEach(wrap => {
+        const id = wrap.id.replace('btn-wrap-', '');
+        const item = cart[id];
+        if (item && item.qty > 0) {
+            wrap.innerHTML = `
+                <div class="stepper">
+                    <button onclick="changeQty(${id}, -1)">&minus;</button>
+                    <span>${item.qty}</span>
+                    <button onclick="changeQty(${id}, 1)">&plus;</button>
+                </div>`;
+        } else {
+            // Find parent card details
+            const card = wrap.closest('.card');
+            const name = card.querySelector('.name').innerText;
+            const price = parseInt(card.querySelector('.price').innerText.replace('₹',''));
+            const unit = card.querySelector('.unit').innerText;
+            const img = card.querySelector('img').src.split('/').pop();
+            wrap.innerHTML = `<button class="btn-add" onclick="addItem(${id}, '${name}', ${price}, '${unit}', '${img}')">ADD +</button>`;
+        }
     });
 }
 
-function mod(n, d, pr) {
-    let c = getC(), i = c.find(x => x.n === n);
-    if (!i && d > 0) c.push({ n, p: pr, q: 1 });
-    else if (i) { i.q += d; if (i.q <= 0) c = c.filter(x => x.n !== n); }
-    setC(c);
+// Search & Category Filter
+function setupFilters() {
+    const search = document.getElementById('searchInput');
+    const tabs = document.querySelectorAll('.tab-btn');
+    const cards = document.querySelectorAll('.card');
+
+    function filterNow() {
+        const query = (search ? search.value : '').toLowerCase();
+        const activeTab = document.querySelector('.tab-btn.active')?.dataset.cat || 'all';
+
+        cards.forEach(card => {
+            const name = card.dataset.name || '';
+            const cat = card.dataset.cat || '';
+            const matchCategory = (activeTab === 'all' || cat === activeTab);
+            const matchSearch = name.includes(query);
+            card.style.display = (matchCategory && matchSearch) ? 'flex' : 'none';
+        });
+    }
+
+    if (search) search.addEventListener('input', filterNow);
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            filterNow();
+        });
+    });
 }
 
-function displayCart() {
-    const list = document.getElementById("cart-items"), tot = document.getElementById("total-price");
+// Render Cart Page Items & Calculate Bill
+function renderCartPage() {
+    const list = document.getElementById('cartItems');
+    const empty = document.getElementById('emptyView');
+    const orderBtn = document.getElementById('orderBtn');
     if (!list) return;
-    const c = getC();
-    let sum = 0;
-    list.innerHTML = c.length ? c.map((i, idx) => {
-        sum += i.p * i.q;
-        return `<div class="cart-item"><span><b>${i.n}</b> × ${i.q} - ₹${i.p * i.q}</span><button onclick="del(${idx})">×</button></div>`;
-    }).join("") : "<p style='color:#888;text-align:center;'>Your cart is empty.</p>";
-    if (tot) tot.innerText = `Total: ₹${sum}`;
+
+    const items = Object.values(cart);
+
+    if (items.length === 0) {
+        list.innerHTML = '';
+        if (empty) empty.classList.remove('hidden');
+        if (orderBtn) orderBtn.disabled = true;
+        calcBill(0);
+        return;
+    }
+
+    if (empty) empty.classList.add('hidden');
+    if (orderBtn) orderBtn.disabled = false;
+
+    list.innerHTML = items.map(i => `
+        <div class="cart-row">
+            <div class="cart-left">
+                <img src="/static/images/${i.img}" class="cart-thumb">
+                <div>
+                    <b>${i.name}</b><br>
+                    <small>₹${i.price} • ${i.unit}</small>
+                </div>
+            </div>
+            <div class="stepper">
+                <button onclick="changeQty(${i.id}, -1)">&minus;</button>
+                <span>${i.qty}</span>
+                <button onclick="changeQty(${i.id}, 1)">&plus;</button>
+            </div>
+            <b>₹${i.price * i.qty}</b>
+        </div>
+    `).join('');
+
+    const subTotal = items.reduce((sum, i) => sum + (i.price * i.qty), 0);
+    calcBill(subTotal);
 }
 
-const del = (idx) => { let c = getC(); c.splice(idx, 1); setC(c); displayCart(); };
+// Total Calculation & Coupon
+function calcBill(subTotal) {
+    const subEl = document.getElementById('subTotal');
+    const delEl = document.getElementById('delFee');
+    const grandEl = document.getElementById('grandTotal');
+    const hiddenTotal = document.getElementById('hiddenTotal');
+    const discRow = document.getElementById('discountRow');
+    const discVal = document.getElementById('discountVal');
 
-function placeOrder() {
-    const c = getC(), n = document.getElementById("name")?.value.trim(), a = document.getElementById("address")?.value.trim();
-    if (!c.length || !n || !a) return alert("Fill all details & add items!");
-    const rec = { id: "DS-" + Math.floor(100000 + Math.random() * 900000), n, a, items: c, tot: c.reduce((s, i) => s + i.p * i.q, 0) };
-    sessionStorage.setItem("rec", JSON.stringify(rec));
-    localStorage.removeItem("c");
-    location.href = "/order-success";
+    if (!subEl) return;
+
+    const delivery = (subTotal > 199 || subTotal === 0) ? 0 : 25;
+    const packing = subTotal === 0 ? 0 : 5;
+    const grand = Math.max(0, subTotal + delivery + packing - discountAmt);
+
+    subEl.innerText = `₹${subTotal}`;
+    delEl.innerText = delivery === 0 ? 'FREE' : `₹${delivery}`;
+
+    if (discountAmt > 0 && discRow) {
+        discRow.classList.remove('hidden');
+        discVal.innerText = `-₹${discountAmt}`;
+    } else if (discRow) {
+        discRow.classList.add('hidden');
+    }
+
+    if (grandEl) grandEl.innerText = `₹${grand}`;
+    if (hiddenTotal) hiddenTotal.value = grand;
 }
 
-function loadReceipt() {
-    const b = document.getElementById("receipt-details"), r = JSON.parse(sessionStorage.getItem("rec") || "null");
-    if (!b || !r) return;
-    b.innerHTML = `<div><b>Order ID:</b> ${r.id}</div><div><b>Name:</b> ${r.n}</div><div><b>Address:</b> ${r.a}</div><hr style='margin:8px 0'>` +
-        r.items.map(i => `<div>• ${i.n} × ${i.q} (₹${i.p * i.q})</div>`).join("") +
-        `<hr style='margin:8px 0'><b style='color:#ff3366;font-size:1.1rem'>Paid: ₹${r.tot}</b>`;
+function applyCoupon() {
+    const val = document.getElementById('couponInput')?.value.trim().toUpperCase();
+    const msg = document.getElementById('couponMsg');
+    const subTotal = Object.values(cart).reduce((sum, i) => sum + (i.price * i.qty), 0);
+
+    if (val === 'SNACK20' && subTotal > 0) {
+        discountAmt = Math.round(subTotal * 0.20);
+        if (msg) { msg.innerText = '🎉 20% discount applied!'; msg.style.color = '#0c831f'; }
+        toast('Coupon Applied!');
+    } else if (msg) {
+        discountAmt = 0;
+        msg.innerText = '❌ Invalid Coupon! Try SNACK20';
+        msg.style.color = '#ef4444';
+    }
+    calcBill(subTotal);
 }
 
-function fetchRev() {
-    const l = document.getElementById("rev-list");
-    if (l) fetch("/api/reviews").then(r => r.json()).then(d => {
-        l.innerHTML = d.map(x => `<div class="rev"><b>${x.name}</b> ${"⭐".repeat(x.rating)}<p>${x.comment}</p></div>`).join("");
-    });
+function clearCart() {
+    cart = {};
+    discountAmt = 0;
+    saveCart();
+    toast('Basket Cleared!');
 }
 
-function addRev() {
-    const name = document.getElementById("r-name")?.value.trim(), comment = document.getElementById("r-com")?.value.trim(), rating = document.getElementById("r-rat")?.value || 5;
-    if (!name || !comment) return alert("Fill all fields!");
-    fetch("/api/reviews", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name, comment, rating }) })
-        .then(() => { document.getElementById("r-name").value = ""; document.getElementById("r-com").value = ""; fetchRev(); });
+function toast(text) {
+    const t = document.getElementById('toast');
+    if (!t) return;
+    t.innerText = text;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2000);
 }
-
-document.addEventListener("DOMContentLoaded", () => { sync(); displayCart(); loadReceipt(); fetchRev(); });

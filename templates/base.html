@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DS SnackBox | 10-Minute Snack Delivery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="top-bar">⚡ 10-Minute Delivery to your doorstep • Free delivery on orders above ₹199!</div>
+
+    <header class="navbar">
+        <div class="nav-content">
+            <a href="/" class="logo"><span class="logo-box">DS</span> Snack<span>Box</span></a>
+            
+            <div class="eta-badge">
+                <i class="ri-timer-flash-fill"></i>
+                <div><b>Delivery in 10 mins</b><small>Pune Central, Maharashtra</small></div>
+            </div>
+
+            <div class="search-wrap">
+                <i class="ri-search-line"></i>
+                <input type="text" id="searchInput" placeholder="Search for chips, sweets, chocolates, drinks...">
+            </div>
+
+            <nav class="nav-actions">
+                <a href="/" class="nav-link"><i class="ri-store-2-line"></i> Store</a>
+                <a href="/reviews" class="nav-link"><i class="ri-star-smile-line"></i> Reviews</a>
+                <a href="/cart" class="cart-btn">
+                    <i class="ri-shopping-bag-3-fill"></i>
+                    <div>
+                        <span id="navCount">0 items</span>
+                        <b id="navTotal">₹0</b>
+                    </div>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-wrapper">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <div class="footer-grid">
+            <div>
+                <a href="/" class="logo"><span class="logo-box">DS</span> Snack<span>Box</span></a>
+                <p class="foot-desc">Fresh snacks, bakery treats, and chilled drinks at your doorstep in minutes.</p>
+                <div class="foot-badge">✔ 100% Genuine • ⚡ Lightning Delivery</div>
+            </div>
+            <div>
+                <h4>Categories</h4>
+                <p>Traditional Sweets<br>Crispy Munchies<br>Fresh Bakery<br>Chilled Sodas</p>
+            </div>
+            <div>
+                <h4>Quick Links</h4>
+                <p><a href="/reviews">Customer Reviews</a><br><a href="/cart">My Basket</a></p>
+            </div>
+            <div>
+                <h4>Safe Payments</h4>
+                <p>Cash on Delivery, UPI & NetBanking</p>
+                <div class="pay-tags"><span>COD</span><span>UPI</span><span>Paytm</span><span>GPay</span></div>
+            </div>
+        </div>
+        <div class="copy">© 2026 DS SnackBox. Fast and delightful snacking.</div>
+    </footer>
+
+    <div id="toast" class="toast"></div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

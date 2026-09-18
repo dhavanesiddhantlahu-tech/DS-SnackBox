@@ -1,37 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cart - DS SnackBox</title>
-    <link rel="stylesheet" href="/static/style.css">
-</head>
-
-<body>
-    <header>
-        <a href="/" class="logo">⚡ DS SnackBox</a>
-        <nav><a href="/">Home</a><a href="/cart" class="active">Cart 🛒</a><a href="/reviews">Reviews ⭐</a></nav>
-    </header>
-    <main>
-        <div class="box">
-            <h2>🛒 Review Cart</h2>
-            <div id="cart-items"></div>
-            <div id="total-price" style="text-align:right;font-weight:800;color:#ff3366;margin:12px 0;">Total: ₹0</div>
-            <input type="text" id="name" placeholder="Full Name" required>
-            <input type="tel" id="phone" placeholder="Phone Number" required>
-            <textarea id="address" placeholder="Delivery Address" rows="2" required></textarea>
-            <select id="payment">
-                <option>💵 Cash on Delivery</option>
-                <option>📱 UPI / Online</option>
-            </select>
-            <button class="btn-sub" onclick="placeOrder()">Place Order 🎉</button>
+{% extends 'base.html' %}
+{% block content %}
+<div class="cart-layout">
+    <!-- Basket Section -->
+    <div class="panel">
+        <div class="panel-head">
+            <h2><i class="ri-shopping-basket-fill"></i> Review Your Basket</h2>
+            <button class="btn-clear" onclick="clearCart()"><i class="ri-delete-bin-line"></i> Clear</button>
         </div>
-    </main>
-    <footer>
-        <p>⚡ DS SnackBox • Delivered in Minutes</p>
-    </footer>
-    <script src="/static/script.js"></script>
-</body>
 
-</html>
+        <div id="cartItems"></div>
+
+        <div id="emptyView" class="empty-view hidden">
+            <div class="empty-icon"><i class="ri-shopping-basket-2-line"></i></div>
+            <h3>Your snack box is completely empty!</h3>
+            <p>Fill it with sweet surprises, savory chips, and chilled sodas.</p>
+            <a href="/" class="btn-order">&larr; Return to Store</a>
+        </div>
+
+        <!-- Coupon Box -->
+        <div class="coupon-box">
+            <input type="text" id="couponInput" placeholder="Enter coupon (Try: SNACK20)">
+            <button onclick="applyCoupon()">Apply</button>
+            <div id="couponMsg"></div>
+        </div>
+    </div>
+
+    <!-- Delivery Details Form -->
+    <form action="/checkout" method="POST" class="panel">
+        <h3><i class="ri-map-pin-user-fill"></i> Delivery Details</h3>
+        
+        <div class="field">
+            <label>Full Name</label>
+            <input type="text" name="name" placeholder="e.g. Siddhant Dhavane" required>
+        </div>
+        <div class="field">
+            <label>Phone Number</label>
+            <input type="tel" name="phone" placeholder="10-digit mobile number" pattern="[0-9]{10}" required>
+        </div>
+        <div class="field">
+            <label>Complete Delivery Address</label>
+            <textarea name="address" rows="3" placeholder="House/Flat No, Landmark, Society name..." required></textarea>
+        </div>
+        <div class="field">
+            <label>Payment Method</label>
+            <select name="pay_mode">
+                <option value="Cash on Delivery">💵 Cash on Delivery (COD)</option>
+                <option value="Instant UPI">⚡ Instant UPI on Arrival</option>
+            </select>
+        </div>
+
+        <input type="hidden" name="total" id="hiddenTotal" value="0">
+
+        <!-- Bill Details -->
+        <div class="bill">
+            <h4>Bill Details</h4>
+            <div class="row"><span>Items Total</span><span id="subTotal">₹0</span></div>
+            <div class="row"><span>Delivery Partner Fee</span><span id="delFee" class="green">FREE</span></div>
+            <div class="row"><span>Platform & Packing Fee</span><span>₹5</span></div>
+            <div class="row hidden" id="discountRow"><span>Discount</span><span id="discountVal" class="green">-₹0</span></div>
+            <hr>
+            <div class="row grand"><span>To Pay</span><span id="grandTotal">₹0</span></div>
+        </div>
+
+        <button type="submit" id="orderBtn" class="btn-order full-w" disabled>Place Order Now &rarr;</button>
+    </form>
+</div>
+{% endblock %}

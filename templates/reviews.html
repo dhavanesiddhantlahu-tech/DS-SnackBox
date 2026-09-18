@@ -1,34 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reviews - DS SnackBox</title>
-    <link rel="stylesheet" href="/static/style.css">
-</head>
-<body>
-    <header>
-        <a href="/" class="logo">⚡ DS SnackBox</a>
-        <nav><a href="/">Home</a><a href="/cart">Cart 🛒 <span id="cart-count"></span></a><a href="/reviews" class="active">Reviews ⭐</a></nav>
-    </header>
-    <main>
-        <div class="box">
-            <h2>⭐ Customer Reviews</h2>
-            <p style="color:#64748b;font-size:0.85rem;margin-bottom:10px;">Share your snack experience</p>
-            <input type="text" id="r-name" placeholder="Your Name">
-            <select id="r-rat">
-                <option value="5">⭐⭐⭐⭐⭐ (Excellent)</option>
-                <option value="4">⭐⭐⭐⭐ (Very Good)</option>
-                <option value="3">⭐⭐⭐ (Good)</option>
-                <option value="2">⭐⭐ (Fair)</option>
-                <option value="1">⭐ (Poor)</option>
-            </select>
-            <textarea id="r-com" placeholder="Your feedback..." rows="2"></textarea>
-            <button class="btn-sub" onclick="addRev()">Submit Review ✨</button>
-            <h3 style="margin-top:18px;font-size:1rem;">Community Ratings</h3>
-            <div id="rev-list"></div>
+{% extends 'base.html' %}
+{% block content %}
+<div class="rev-page">
+    <div class="rev-header">
+        <h2>Customer Experiences</h2>
+        <p>Real feedback from everyday snackers. We take every single opinion to heart!</p>
+    </div>
+
+    <div class="rev-page-grid">
+        <!-- Form -->
+        <form action="/reviews" method="POST" class="panel">
+            <h3><i class="ri-quill-pen-fill"></i> Share Your Review</h3>
+            <div class="field">
+                <label>Your Name</label>
+                <input type="text" name="name" placeholder="e.g. Siddhant Dhavane" required>
+            </div>
+            <div class="field">
+                <label>Rating</label>
+                <select name="rating">
+                    <option value="5">⭐⭐⭐⭐⭐ (Excellent / Fast)</option>
+                        <option value="4">⭐⭐⭐⭐ (Very Good)</option>
+                        <option value="3">⭐⭐⭐ (Average)</option>
+                        <option value="2">⭐⭐ (Needs Improvement)</option>
+                        <option value="1">⭐ (Poor)</option>
+                </select>
+            </div>
+            <div class="field">
+                <label>Your Honest Feedback</label>
+                <textarea name="comment" rows="4" placeholder="How was the delivery time and snack taste?" required></textarea>
+            </div>
+            <button type="submit" class="btn-order">Post Review</button>
+        </form>
+
+        <!-- List -->
+        <div class="panel">
+            <h3>Community Ratings ({{ reviews | length }})</h3>
+            <div class="feed-list">
+                {% for r in reviews %}
+                <div class="feed-card">
+                    <div class="feed-head">
+                        <div>
+                            <b>{{ r.name }}</b>
+                            <span class="green verified"><i class="ri-shield-check-fill"></i> Verified</span>
+                        </div>
+                        <span class="stars">★★★★★</span>
+                    </div>
+                    <p>"{{ r.comment }}"</p>
+                    <small>{{ r.date }}</small>
+                </div>
+                {% endfor %}
+            </div>
         </div>
-    </main>
-    <footer><p>⚡ DS SnackBox • Delivered in Minutes</p></footer>
-    <script src="/static/script.js"></script>
-</body>
-</html>
+    </div>
+</div>
+{% endblock %}
