@@ -14,11 +14,11 @@ body { background: var(--bg); color: var(--dark); line-height: 1.4; overflow-x: 
 /* Top Announcement */
 .top-bar { background: #1e1b4b; color: #c7d2fe; font-size: 0.78rem; text-align: center; padding: 6px 10px; }
 
-/* Navbar */
+/* Desktop Navbar */
 .navbar { background: #fff; border-bottom: 1px solid var(--border); position: sticky; top:0; z-index: 100; padding: 10px 16px; }
-.nav-content { max-width: 1240px; margin: auto; display: flex; align-items: center; gap: 16px; }
+.nav-content { max-width: 1240px; margin: auto; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 
-/* Logo & "DS" Badge Fix */
+/* Logo with Bold White DS */
 .logo { font-size: 1.25rem; font-weight: 800; text-decoration: none; color: var(--dark); display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0; }
 .logo-box { 
     background: var(--primary); 
@@ -39,14 +39,15 @@ body { background: var(--bg); color: var(--dark); line-height: 1.4; overflow-x: 
 .eta-badge { display: flex; align-items: center; gap: 8px; background: #eefaf0; color: var(--green); padding: 4px 10px; border-radius: 8px; font-size: 0.8rem; flex-shrink: 0; }
 .eta-badge small { display: block; color: var(--muted); font-size: 0.68rem; }
 
-/* Search Bar */
-.search-wrap { flex: 1; position: relative; }
+/* Search Bar (Desktop) */
+.search-wrap { flex: 1; position: relative; max-width: 440px; }
 .search-wrap i { position: absolute; left: 12px; top: 10px; color: var(--muted); }
 .search-wrap input { width: 100%; padding: 8px 12px 8px 36px; border: 1px solid var(--border); border-radius: 8px; background: #f1f5f9; outline: none; font-size: 0.85rem; }
 .search-wrap input:focus { background: #fff; border-color: var(--primary); }
 
-.nav-actions { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
-.nav-link { text-decoration: none; color: var(--dark); font-weight: 700; font-size: 0.88rem; display: inline-flex; align-items: center; gap: 4px; }
+.nav-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.nav-link { text-decoration: none; color: var(--dark); font-weight: 700; font-size: 0.88rem; display: inline-flex; align-items: center; gap: 4px; padding: 6px 10px; border-radius: 6px; transition: 0.2s; }
+.nav-link:hover { color: var(--primary); background: #ffeef2; }
 .cart-btn { background: var(--green); color: #fff; text-decoration: none; padding: 6px 12px; border-radius: 8px; display: flex; align-items: center; gap: 8px; font-size: 0.78rem; flex-shrink: 0; }
 .cart-btn-text { display: flex; flex-direction: column; text-align: right; line-height: 1.1; }
 
@@ -64,7 +65,7 @@ body { background: var(--bg); color: var(--dark); line-height: 1.4; overflow-x: 
 /* Category Navigation */
 .cat-section h2 { font-size: 1.25rem; margin-bottom: 2px; }
 .cat-section p { color: var(--muted); font-size: 0.82rem; margin-bottom: 12px; }
-.cat-tabs { display: flex; gap: 8px; overflow-x: auto; margin-bottom: 18px; padding-bottom: 4px; -webkit-overflow-scrolling: touch; }
+.cat-tabs { display: flex; gap: 8px; overflow-x: auto; margin-bottom: 18px; padding-bottom: 4px; }
 .tab-btn { background: #fff; border: 1px solid var(--border); padding: 7px 14px; border-radius: 20px; font-size: 0.82rem; font-weight: 700; color: var(--muted); cursor: pointer; white-space: nowrap; flex-shrink: 0; }
 .tab-btn.active, .tab-btn:hover { background: var(--dark); color: #fff; border-color: var(--dark); }
 
@@ -163,32 +164,66 @@ body { background: var(--bg); color: var(--dark); line-height: 1.4; overflow-x: 
 .hidden { display: none !important; }
 
 /* =========================================================
-   MOBILE & ANDROID RESPONSIVE RULES (< 768px)
+   MOBILE & ANDROID RESPONSIVE (Store & Reviews FULLY VISIBLE)
    ========================================================= */
 @media (max-width: 768px) {
     .navbar { padding: 8px 12px; }
     
-    /* Grid layout for mobile header: row 1 (logo + cart), row 2 (full search) */
     .nav-content {
         display: flex;
         flex-wrap: wrap;
+        align-items: center;
         justify-content: space-between;
         gap: 8px;
     }
 
-    .eta-badge, .nav-link { display: none; } /* Hide clutter on phones */
+    /* Row 1 Left: Logo */
+    .logo { font-size: 1.15rem; gap: 5px; }
+    .logo-box { font-size: 0.8rem; padding: 2px 6px; height: 24px; min-width: 26px; }
 
-    .logo { font-size: 1.15rem; }
-    .logo-box { font-size: 0.82rem; padding: 2px 6px; height: 24px; min-width: 26px; }
+    /* Hide ETA badge on small phone headers to make room for Store & Reviews */
+    .eta-badge { display: none; }
 
-    .cart-btn { padding: 5px 10px; font-size: 0.72rem; }
+    /* Row 1 Right: Store, Reviews & Cart ALL VISIBLE & READABLE */
+    .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
 
+    .nav-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 3px;
+        font-size: 0.78rem;
+        font-weight: 700;
+        background: #f1f5f9;
+        color: var(--dark);
+        padding: 5px 8px;
+        border-radius: 6px;
+    }
+    .nav-link i { font-size: 0.9rem; color: var(--primary); }
+
+    .cart-btn {
+        padding: 5px 9px;
+        font-size: 0.72rem;
+        border-radius: 6px;
+        gap: 6px;
+    }
+
+    /* Row 2: Full-width search bar */
     .search-wrap {
         order: 3;
-        width: 100%;
+        flex: 0 0 100% !important;
+        width: 100% !important;
+        max-width: 100% !important;
         margin-top: 2px;
     }
-    .search-wrap input { padding: 7px 10px 7px 32px; font-size: 0.82rem; }
+    .search-wrap input { 
+        width: 100%;
+        padding: 8px 12px 8px 34px; 
+        font-size: 0.82rem; 
+    }
     .search-wrap i { top: 9px; left: 10px; font-size: 0.95rem; }
 
     .main-wrapper { padding: 0 10px; margin: 14px auto; }
@@ -196,13 +231,13 @@ body { background: var(--bg); color: var(--dark); line-height: 1.4; overflow-x: 
     .hero-banner {
         flex-direction: column;
         text-align: center;
-        padding: 20px 14px;
+        padding: 18px 12px;
         gap: 12px;
     }
     .hero-text h1 { font-size: 1.35rem; }
     .hero-badges { flex-direction: row; justify-content: center; flex-wrap: wrap; }
 
-    /* Exactly 2 cards per row on mobile phones / Android */
+    /* 2 products per row on Android */
     .products-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 10px;
@@ -219,4 +254,10 @@ body { background: var(--bg); color: var(--dark); line-height: 1.4; overflow-x: 
         gap: 16px;
     }
     .footer-grid { gap: 20px; }
+}
+
+@media (max-width: 360px) {
+    .nav-link span { font-size: 0.72rem; }
+    .nav-actions { gap: 4px; }
+    .cart-btn { padding: 4px 6px; }
 }

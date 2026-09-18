@@ -6,34 +6,35 @@
     <title>DS SnackBox | 10-Minute Snack Delivery</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=3">
 </head>
 <body>
     <div class="top-bar">⚡ 10-Minute Delivery to your doorstep • Free delivery on orders above ₹199!</div>
 
     <header class="navbar">
         <div class="nav-content">
-            <!-- Logo with visible DS badge -->
+            <!-- Brand Logo -->
             <a href="/" class="logo">
                 <span class="logo-box">DS</span>
                 <span class="logo-text">Snack<span>Box</span></span>
             </a>
             
+            <!-- Desktop ETA Badge -->
             <div class="eta-badge">
                 <i class="ri-timer-flash-fill"></i>
                 <div><b>10 mins</b><small>Pune Central</small></div>
             </div>
 
-            <!-- Search Bar -->
+            <!-- Full-Width Search Input -->
             <div class="search-wrap">
                 <i class="ri-search-line"></i>
-                <input type="text" id="searchInput" placeholder="Search chips, sweets, drinks...">
+                <input type="text" id="searchInput" placeholder="Search chips, sweets, chocolates, drinks...">
             </div>
 
-            <!-- Navigation Links & Cart -->
+            <!-- Navigation Links (Store, Reviews, Cart) -->
             <nav class="nav-actions">
-                <a href="/" class="nav-link"><i class="ri-store-2-line"></i> Store</a>
-                <a href="/reviews" class="nav-link"><i class="ri-star-smile-line"></i> Reviews</a>
+                <a href="/" class="nav-link"><i class="ri-store-2-line"></i> <span>Store</span></a>
+                <a href="/reviews" class="nav-link"><i class="ri-star-smile-line"></i> <span>Reviews</span></a>
                 <a href="/cart" class="cart-btn">
                     <i class="ri-shopping-bag-3-fill"></i>
                     <div class="cart-btn-text">
